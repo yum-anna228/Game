@@ -3,7 +3,7 @@
 
 namespace Game
 {
-    partial class Game
+    partial class GameForm
     {
         /// <summary>
         ///  Required designer variable.
@@ -46,6 +46,7 @@ namespace Game
             btn_Game.Size = new Size(113, 44);
             btn_Game.TabIndex = 0;
             btn_Game.UseVisualStyleBackColor = false;
+            btn_Game.Click += btn_Game_Click;
             // 
             // btn_Rules
             // 
@@ -69,7 +70,7 @@ namespace Game
             btn_language.TabIndex = 2;
             btn_language.UseVisualStyleBackColor = false;
             // 
-            // Game
+            // GameForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -80,7 +81,7 @@ namespace Game
             Controls.Add(btn_Rules);
             Controls.Add(btn_Game);
             DoubleBuffered = true;
-            Name = "Game";
+            Name = "GameForm";
             Text = "Game";
             ResumeLayout(false);
         }

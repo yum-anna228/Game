@@ -31,6 +31,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RegistrForm));
             btn_Registr1 = new Button();
             btn_Enter1 = new Button();
+            txtUsername = new TextBox();
+            txtPassword = new TextBox();
+            txtConfirmPassword = new TextBox();
             SuspendLayout();
             // 
             // btn_Registr1
@@ -43,6 +46,7 @@
             btn_Registr1.Size = new Size(357, 69);
             btn_Registr1.TabIndex = 0;
             btn_Registr1.UseVisualStyleBackColor = false;
+            btn_Registr1.Click += btn_Registr1_Click;
             // 
             // btn_Enter1
             // 
@@ -54,6 +58,28 @@
             btn_Enter1.Size = new Size(94, 38);
             btn_Enter1.TabIndex = 1;
             btn_Enter1.UseVisualStyleBackColor = false;
+            btn_Enter1.Click += btn_Enter1_Click;
+            // 
+            // txtUsername
+            // 
+            txtUsername.Location = new Point(72, 103);
+            txtUsername.Name = "txtUsername";
+            txtUsername.Size = new Size(651, 27);
+            txtUsername.TabIndex = 2;
+            // 
+            // txtPassword
+            // 
+            txtPassword.Location = new Point(71, 201);
+            txtPassword.Name = "txtPassword";
+            txtPassword.Size = new Size(652, 27);
+            txtPassword.TabIndex = 3;
+            // 
+            // txtConfirmPassword
+            // 
+            txtConfirmPassword.Location = new Point(74, 302);
+            txtConfirmPassword.Name = "txtConfirmPassword";
+            txtConfirmPassword.Size = new Size(649, 27);
+            txtConfirmPassword.TabIndex = 4;
             // 
             // RegistrForm
             // 
@@ -62,17 +88,24 @@
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(800, 450);
+            Controls.Add(txtConfirmPassword);
+            Controls.Add(txtPassword);
+            Controls.Add(txtUsername);
             Controls.Add(btn_Enter1);
             Controls.Add(btn_Registr1);
             DoubleBuffered = true;
             Name = "RegistrForm";
             Text = "RegistrForm";
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
         private Button btn_Registr1;
         private Button btn_Enter1;
+        private TextBox txtUsername;
+        private TextBox txtPassword;
+        private TextBox txtConfirmPassword;
     }
 }

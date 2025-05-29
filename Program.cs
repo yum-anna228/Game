@@ -35,12 +35,13 @@ namespace Game
 
             // Регистрация форм
             services.AddTransient<LoginForm>();
-            services.AddTransient<Game>(); // Основная форма
+            services.AddTransient<RegistrForm>();
+            services.AddTransient<GameForm>(); 
 
 
             var serviceProvider = services.BuildServiceProvider();
-
-            Application.Run(serviceProvider.GetRequiredService<Game>());
+            var gameForm = serviceProvider.GetRequiredService<GameForm>();
+            Application.Run(gameForm);
         }
     }
 }
