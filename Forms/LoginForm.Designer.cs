@@ -86,11 +86,11 @@
             txtPassword.BackColor = Color.FromArgb(123, 79, 53);
             txtPassword.Font = new Font("Montserrat Thin", 28.8F, FontStyle.Regular, GraphicsUnit.Point, 204);
             txtPassword.ForeColor = SystemColors.Window;
-            txtPassword.Location = new Point(63, 240);
+            txtPassword.Location = new Point(63, 238);
             txtPassword.Name = "txtPassword";
+            txtPassword.PlaceholderText = "Пароль";
             txtPassword.Size = new Size(683, 66);
             txtPassword.TabIndex = 3;
-            txtPassword.Text = "Пароль";
             // 
             // txtLogin
             // 
@@ -99,9 +99,9 @@
             txtLogin.ForeColor = SystemColors.Window;
             txtLogin.Location = new Point(63, 133);
             txtLogin.Name = "txtLogin";
+            txtLogin.PlaceholderText = "Имя пользователя";
             txtLogin.Size = new Size(683, 66);
             txtLogin.TabIndex = 3;
-            txtLogin.Text = "Имя пользователя";
             // 
             // LoginForm
             // 

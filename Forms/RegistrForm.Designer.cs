@@ -1,4 +1,5 @@
-﻿namespace Game
+﻿
+namespace Game
 {
     partial class RegistrForm
     {
@@ -65,33 +66,32 @@
             txtPassword.BackColor = Color.FromArgb(123, 79, 53);
             txtPassword.Font = new Font("Montserrat Thin", 28.8F, FontStyle.Regular, GraphicsUnit.Point, 204);
             txtPassword.ForeColor = SystemColors.Window;
-            txtPassword.Location = new Point(71, 178);
+            txtPassword.Location = new Point(71, 182);
             txtPassword.Name = "txtPassword";
-            txtPassword.Size = new Size(660, 66);
+            txtPassword.PlaceholderText = "Введите пароль";
+            txtPassword.Size = new Size(676, 66);
             txtPassword.TabIndex = 3;
-            txtPassword.Text = "Введите пароль";
             // 
             // txtConfirmPassword
             // 
             txtConfirmPassword.BackColor = Color.FromArgb(123, 79, 53);
             txtConfirmPassword.Font = new Font("Montserrat Thin", 28.8F, FontStyle.Regular, GraphicsUnit.Point, 204);
             txtConfirmPassword.ForeColor = SystemColors.Window;
-            txtConfirmPassword.Location = new Point(71, 273);
+            txtConfirmPassword.Location = new Point(71, 277);
             txtConfirmPassword.Name = "txtConfirmPassword";
-            txtConfirmPassword.Size = new Size(660, 66);
+            txtConfirmPassword.PlaceholderText = "Повторите пароль";
+            txtConfirmPassword.Size = new Size(676, 66);
             txtConfirmPassword.TabIndex = 4;
-            txtConfirmPassword.Text = "Повторите пароль";
             // 
             // txtUsername
             // 
             txtUsername.BackColor = Color.FromArgb(123, 79, 53);
-            txtUsername.Font = new Font("Montserrat Thin", 28.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtUsername.ForeColor = SystemColors.Window;
-            txtUsername.Location = new Point(71, 85);
+            txtUsername.Font = new Font("Montserrat Thin", 28.8F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            txtUsername.Location = new Point(73, 86);
             txtUsername.Name = "txtUsername";
-            txtUsername.Size = new Size(660, 66);
+            txtUsername.PlaceholderText = "Введите имя пользователя";
+            txtUsername.Size = new Size(674, 66);
             txtUsername.TabIndex = 5;
-            txtUsername.Text = "Введите имя пользователя";
             // 
             // RegistrForm
             // 
