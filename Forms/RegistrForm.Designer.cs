@@ -66,9 +66,8 @@ namespace Game
             txtPassword.BackColor = Color.FromArgb(123, 79, 53);
             txtPassword.Font = new Font("Montserrat Thin", 28.8F, FontStyle.Regular, GraphicsUnit.Point, 204);
             txtPassword.ForeColor = SystemColors.Window;
-            txtPassword.Location = new Point(71, 182);
+            txtPassword.Location = new Point(60, 213);
             txtPassword.Name = "txtPassword";
-            txtPassword.PlaceholderText = "Введите пароль";
             txtPassword.Size = new Size(676, 66);
             txtPassword.TabIndex = 3;
             // 
@@ -77,9 +76,8 @@ namespace Game
             txtConfirmPassword.BackColor = Color.FromArgb(123, 79, 53);
             txtConfirmPassword.Font = new Font("Montserrat Thin", 28.8F, FontStyle.Regular, GraphicsUnit.Point, 204);
             txtConfirmPassword.ForeColor = SystemColors.Window;
-            txtConfirmPassword.Location = new Point(71, 277);
+            txtConfirmPassword.Location = new Point(60, 301);
             txtConfirmPassword.Name = "txtConfirmPassword";
-            txtConfirmPassword.PlaceholderText = "Повторите пароль";
             txtConfirmPassword.Size = new Size(676, 66);
             txtConfirmPassword.TabIndex = 4;
             // 
@@ -87,9 +85,8 @@ namespace Game
             // 
             txtUsername.BackColor = Color.FromArgb(123, 79, 53);
             txtUsername.Font = new Font("Montserrat Thin", 28.8F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            txtUsername.Location = new Point(73, 86);
+            txtUsername.Location = new Point(60, 124);
             txtUsername.Name = "txtUsername";
-            txtUsername.PlaceholderText = "Введите имя пользователя";
             txtUsername.Size = new Size(674, 66);
             txtUsername.TabIndex = 5;
             // 
