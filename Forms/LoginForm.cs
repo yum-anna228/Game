@@ -45,5 +45,6 @@ namespace Game
             registForm.Show();
             this.Hide(); // Скрываем текущую форму
         }
+
     }
 }

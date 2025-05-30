@@ -31,9 +31,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RegistrForm));
             btn_Registr1 = new Button();
             btn_Enter1 = new Button();
-            txtUsername = new TextBox();
             txtPassword = new TextBox();
             txtConfirmPassword = new TextBox();
+            txtUsername = new TextBox();
             SuspendLayout();
             // 
             // btn_Registr1
@@ -60,26 +60,38 @@
             btn_Enter1.UseVisualStyleBackColor = false;
             btn_Enter1.Click += btn_Enter1_Click;
             // 
-            // txtUsername
-            // 
-            txtUsername.Location = new Point(72, 103);
-            txtUsername.Name = "txtUsername";
-            txtUsername.Size = new Size(651, 27);
-            txtUsername.TabIndex = 2;
-            // 
             // txtPassword
             // 
-            txtPassword.Location = new Point(71, 201);
+            txtPassword.BackColor = Color.FromArgb(123, 79, 53);
+            txtPassword.Font = new Font("Montserrat Thin", 28.8F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            txtPassword.ForeColor = SystemColors.Window;
+            txtPassword.Location = new Point(71, 178);
             txtPassword.Name = "txtPassword";
-            txtPassword.Size = new Size(652, 27);
+            txtPassword.Size = new Size(660, 66);
             txtPassword.TabIndex = 3;
+            txtPassword.Text = "Введите пароль";
             // 
             // txtConfirmPassword
             // 
-            txtConfirmPassword.Location = new Point(74, 302);
+            txtConfirmPassword.BackColor = Color.FromArgb(123, 79, 53);
+            txtConfirmPassword.Font = new Font("Montserrat Thin", 28.8F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            txtConfirmPassword.ForeColor = SystemColors.Window;
+            txtConfirmPassword.Location = new Point(71, 273);
             txtConfirmPassword.Name = "txtConfirmPassword";
-            txtConfirmPassword.Size = new Size(649, 27);
+            txtConfirmPassword.Size = new Size(660, 66);
             txtConfirmPassword.TabIndex = 4;
+            txtConfirmPassword.Text = "Повторите пароль";
+            // 
+            // txtUsername
+            // 
+            txtUsername.BackColor = Color.FromArgb(123, 79, 53);
+            txtUsername.Font = new Font("Montserrat Thin", 28.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtUsername.ForeColor = SystemColors.Window;
+            txtUsername.Location = new Point(71, 85);
+            txtUsername.Name = "txtUsername";
+            txtUsername.Size = new Size(660, 66);
+            txtUsername.TabIndex = 5;
+            txtUsername.Text = "Введите имя пользователя";
             // 
             // RegistrForm
             // 
@@ -88,9 +100,9 @@
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(800, 450);
+            Controls.Add(txtUsername);
             Controls.Add(txtConfirmPassword);
             Controls.Add(txtPassword);
-            Controls.Add(txtUsername);
             Controls.Add(btn_Enter1);
             Controls.Add(btn_Registr1);
             DoubleBuffered = true;
@@ -104,8 +116,8 @@
 
         private Button btn_Registr1;
         private Button btn_Enter1;
-        private TextBox txtUsername;
         private TextBox txtPassword;
         private TextBox txtConfirmPassword;
+        private TextBox txtUsername;
     }
 }

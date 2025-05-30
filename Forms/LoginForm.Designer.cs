@@ -28,11 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginForm));
             btn_Login = new Button();
             btn_Registr = new Button();
-            txtLogin = new TextBox();
+            contextMenuStrip1 = new ContextMenuStrip(components);
+            contextMenuStrip2 = new ContextMenuStrip(components);
+            contextMenuStrip3 = new ContextMenuStrip(components);
             txtPassword = new TextBox();
+            txtLogin = new TextBox();
             SuspendLayout();
             // 
             // btn_Login
@@ -59,19 +63,45 @@
             btn_Registr.UseVisualStyleBackColor = false;
             btn_Registr.Click += btn_Registr_Click;
             // 
-            // txtLogin
+            // contextMenuStrip1
             // 
-            txtLogin.Location = new Point(61, 157);
-            txtLogin.Name = "txtLogin";
-            txtLogin.Size = new Size(674, 27);
-            txtLogin.TabIndex = 2;
+            contextMenuStrip1.ImageScalingSize = new Size(20, 20);
+            contextMenuStrip1.Name = "contextMenuStrip1";
+            contextMenuStrip1.Size = new Size(61, 4);
+            // 
+            // contextMenuStrip2
+            // 
+            contextMenuStrip2.ImageScalingSize = new Size(20, 20);
+            contextMenuStrip2.Name = "contextMenuStrip2";
+            contextMenuStrip2.Size = new Size(61, 4);
+            // 
+            // contextMenuStrip3
+            // 
+            contextMenuStrip3.ImageScalingSize = new Size(20, 20);
+            contextMenuStrip3.Name = "contextMenuStrip3";
+            contextMenuStrip3.Size = new Size(61, 4);
             // 
             // txtPassword
             // 
-            txtPassword.Location = new Point(65, 260);
+            txtPassword.BackColor = Color.FromArgb(123, 79, 53);
+            txtPassword.Font = new Font("Montserrat Thin", 28.8F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            txtPassword.ForeColor = SystemColors.Window;
+            txtPassword.Location = new Point(63, 240);
             txtPassword.Name = "txtPassword";
-            txtPassword.Size = new Size(670, 27);
+            txtPassword.Size = new Size(683, 66);
             txtPassword.TabIndex = 3;
+            txtPassword.Text = "Пароль";
+            // 
+            // txtLogin
+            // 
+            txtLogin.BackColor = Color.FromArgb(123, 79, 53);
+            txtLogin.Font = new Font("Montserrat Thin", 28.8F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            txtLogin.ForeColor = SystemColors.Window;
+            txtLogin.Location = new Point(63, 133);
+            txtLogin.Name = "txtLogin";
+            txtLogin.Size = new Size(683, 66);
+            txtLogin.TabIndex = 3;
+            txtLogin.Text = "Имя пользователя";
             // 
             // LoginForm
             // 
@@ -80,13 +110,13 @@
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(800, 450);
-            Controls.Add(txtPassword);
             Controls.Add(txtLogin);
+            Controls.Add(txtPassword);
             Controls.Add(btn_Registr);
             Controls.Add(btn_Login);
             DoubleBuffered = true;
             Name = "LoginForm";
-            Text = "LoginForm";
+            Text = "Вход";
             ResumeLayout(false);
             PerformLayout();
         }
@@ -95,7 +125,12 @@
 
         private Button btn_Login;
         private Button btn_Registr;
-        private TextBox txtLogin;
+        private ContextMenuStrip contextMenuStrip1;
+        private ContextMenuStrip contextMenuStrip2;
+        private ContextMenuStrip contextMenuStrip3;
         private TextBox txtPassword;
+        private TextBox txtLogin;
+        //private TransparentHintedTextBox txtLogin;
+        //private TransparentHintedTextBox txtPassword;
     }
 }
