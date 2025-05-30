@@ -85,6 +85,7 @@ namespace Game
             // 
             txtUsername.BackColor = Color.FromArgb(123, 79, 53);
             txtUsername.Font = new Font("Montserrat Thin", 28.8F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            txtUsername.ForeColor = SystemColors.Window;
             txtUsername.Location = new Point(60, 124);
             txtUsername.Name = "txtUsername";
             txtUsername.Size = new Size(674, 66);
