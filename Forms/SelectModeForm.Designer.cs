@@ -29,19 +29,31 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SelectModeForm));
-            btn_2gamers = new Button();
+            btn_2players = new Button();
+            btn_3players = new Button();
             SuspendLayout();
             // 
-            // btn_2gamers
+            // btn_2players
             // 
-            btn_2gamers.BackColor = Color.Transparent;
-            btn_2gamers.FlatAppearance.BorderSize = 0;
-            btn_2gamers.FlatStyle = FlatStyle.Flat;
-            btn_2gamers.Location = new Point(171, 186);
-            btn_2gamers.Name = "btn_2gamers";
-            btn_2gamers.Size = new Size(189, 91);
-            btn_2gamers.TabIndex = 0;
-            btn_2gamers.UseVisualStyleBackColor = false;
+            btn_2players.BackColor = Color.Transparent;
+            btn_2players.FlatAppearance.BorderSize = 0;
+            btn_2players.FlatStyle = FlatStyle.Flat;
+            btn_2players.Location = new Point(171, 186);
+            btn_2players.Name = "btn_2players";
+            btn_2players.Size = new Size(189, 91);
+            btn_2players.TabIndex = 0;
+            btn_2players.UseVisualStyleBackColor = false;
+            // 
+            // btn_3players
+            // 
+            btn_3players.BackColor = Color.Transparent;
+            btn_3players.FlatAppearance.BorderSize = 0;
+            btn_3players.FlatStyle = FlatStyle.Flat;
+            btn_3players.Location = new Point(426, 186);
+            btn_3players.Name = "btn_3players";
+            btn_3players.Size = new Size(209, 93);
+            btn_3players.TabIndex = 1;
+            btn_3players.UseVisualStyleBackColor = false;
             // 
             // SelectModeForm
             // 
@@ -50,7 +62,8 @@
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(800, 450);
-            Controls.Add(btn_2gamers);
+            Controls.Add(btn_3players);
+            Controls.Add(btn_2players);
             DoubleBuffered = true;
             Name = "SelectModeForm";
             Text = "SelectModeForm";
@@ -59,6 +72,7 @@
 
         #endregion
 
-        private Button btn_2gamers;
+        private Button btn_2players;
+        private Button btn_3players;
     }
 }
