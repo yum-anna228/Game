@@ -18,5 +18,10 @@
         {
 
         }
+
+        private void SelectModeForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

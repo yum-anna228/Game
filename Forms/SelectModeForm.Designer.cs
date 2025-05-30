@@ -95,6 +95,7 @@
             DoubleBuffered = true;
             Name = "SelectModeForm";
             Text = "SelectModeForm";
+            Load += SelectModeForm_Load;
             ResumeLayout(false);
         }
 
