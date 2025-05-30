@@ -29,7 +29,19 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SelectModeForm));
+            btn_2gamers = new Button();
             SuspendLayout();
+            // 
+            // btn_2gamers
+            // 
+            btn_2gamers.BackColor = Color.Transparent;
+            btn_2gamers.FlatAppearance.BorderSize = 0;
+            btn_2gamers.FlatStyle = FlatStyle.Flat;
+            btn_2gamers.Location = new Point(171, 186);
+            btn_2gamers.Name = "btn_2gamers";
+            btn_2gamers.Size = new Size(189, 91);
+            btn_2gamers.TabIndex = 0;
+            btn_2gamers.UseVisualStyleBackColor = false;
             // 
             // SelectModeForm
             // 
@@ -38,6 +50,7 @@
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(800, 450);
+            Controls.Add(btn_2gamers);
             DoubleBuffered = true;
             Name = "SelectModeForm";
             Text = "SelectModeForm";
@@ -45,5 +58,7 @@
         }
 
         #endregion
+
+        private Button btn_2gamers;
     }
 }
