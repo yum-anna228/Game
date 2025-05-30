@@ -8,5 +8,15 @@
             InitializeComponent();
             _currentUser = currentUser;
         }
+
+        private void btn_2players_Click(object sender, EventArgs e)
+        {
+            //StartGame(2);
+        }
+
+        private void btn_3players_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

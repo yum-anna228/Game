@@ -45,6 +45,7 @@
             btn_2players.Size = new Size(189, 91);
             btn_2players.TabIndex = 0;
             btn_2players.UseVisualStyleBackColor = false;
+            btn_2players.Click += btn_2players_Click;
             // 
             // btn_3players
             // 
@@ -56,6 +57,7 @@
             btn_3players.Size = new Size(209, 93);
             btn_3players.TabIndex = 1;
             btn_3players.UseVisualStyleBackColor = false;
+            btn_3players.Click += btn_3players_Click;
             // 
             // btn_viewStatistics
             // 
