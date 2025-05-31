@@ -1,13 +1,21 @@
-﻿namespace Game
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using System;
+
+namespace Game
 {
     public partial class RegistrForm : Form
     {
         private readonly IAuthService _authService;
+        private readonly GameDbContext _db;
+        private readonly IServiceProvider _serviceProvider;
 
-        public RegistrForm(IAuthService authService)
+        public RegistrForm(IAuthService authService, GameDbContext db, IServiceProvider serviceProvider)
         {
-            InitializeComponent();
             _authService = authService;
+            _db = db;
+            _serviceProvider = serviceProvider;
+            InitializeComponent();
         }
 
         private async void btn_Registr1_Click(object sender, EventArgs e)
@@ -37,7 +45,7 @@
             if (success)
             {
                 MessageBox.Show("Регистрация успешна!");
-                var loginForm = new LoginForm(_authService);
+                var loginForm = _serviceProvider.GetRequiredService<LoginForm>();
                 loginForm.Show();
                 this.Hide();
             }
@@ -49,7 +57,7 @@
 
         private void btn_Enter1_Click(object sender, EventArgs e)
         {
-            var loginForm = new LoginForm(_authService);
+            var loginForm = _serviceProvider.GetRequiredService<LoginForm>();
             loginForm.Show();
             this.Hide();
         }

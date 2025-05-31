@@ -40,6 +40,7 @@ namespace Game
             services.AddTransient<SelectModeForm>();
             services.AddTransient<GameTableFormFor2Players>();
             services.AddTransient<GameTableFormFor3Players>();
+            services.AddTransient<StatisticsForm>();
 
 
             var serviceProvider = services.BuildServiceProvider();
