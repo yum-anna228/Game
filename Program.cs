@@ -36,7 +36,10 @@ namespace Game
             // Регистрация форм
             services.AddTransient<LoginForm>();
             services.AddTransient<RegistrForm>();
-            services.AddTransient<GameForm>(); 
+            services.AddTransient<GameForm>();
+            services.AddTransient<SelectModeForm>();
+            services.AddTransient<GameTableFormFor2Players>();
+            services.AddTransient<GameTableFormFor3Players>();
 
 
             var serviceProvider = services.BuildServiceProvider();

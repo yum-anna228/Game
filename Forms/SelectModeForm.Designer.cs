@@ -69,6 +69,7 @@
             btn_viewStatistics.Size = new Size(343, 47);
             btn_viewStatistics.TabIndex = 2;
             btn_viewStatistics.UseVisualStyleBackColor = false;
+            btn_viewStatistics.Click += btn_viewStatistics_Click;
             // 
             // btn_Exit
             // 
