@@ -50,6 +50,7 @@ namespace Game
                 MessageBox.Show("Ошибка: пользователь не установлен.");
                 return;
             }
+
             var session = new GameSession
             {
                 Id = Guid.NewGuid(),
@@ -59,7 +60,6 @@ namespace Game
             };
 
             _db.GameSessions.Add(session);
-            _db.SaveChanges();
 
             var players = new List<PlayerInGame>();
 
@@ -77,10 +77,18 @@ namespace Game
             }
 
             _db.PlayerInGames.AddRange(players);
-            _db.SaveChanges();
 
-            Process.Start(Application.ExecutablePath, $"2 {session.Id} {players[0].Id}");
-            Process.Start(Application.ExecutablePath, $"2 {session.Id} {players[1].Id}");
+            // --- Генерация и добавление карт ---
+            var deckService = new DeckService(session.TrumpSuit);
+            var cards = deckService.CreateDeck(session.Id, players.Select(p => p.Id).ToList());
+
+            _db.Cards.AddRange(cards);
+            // ----------------------------------
+
+            _db.SaveChanges(); // Сохраняем всё в БД
+
+            Process.Start(Application.ExecutablePath, $"--session {session.Id} --player {players[0].Id}");
+            Process.Start(Application.ExecutablePath, $"--session {session.Id} --player {players[1].Id}");
 
             Application.Exit();
         }

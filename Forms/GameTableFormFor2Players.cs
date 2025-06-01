@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using System.Reflection;
 
 namespace Game
 {
@@ -19,40 +20,101 @@ namespace Game
             _playerInGameId = playerInGameId;
             _gameLogic = new DurakGameLogic(_db, _gameSessionId);
             LoadPlayerCards();
+            ShowTrump();
+        }
+
+        private Image GetCardImage(string imageName)
+        {
+            try
+            {
+                // Полное имя ресурса
+                string resourceName = "Game.Resources." + imageName;
+
+                using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName))
+                {
+                    if (stream != null)
+                    {
+                        return Image.FromStream(stream);
+                    }
+                }
+            }
+            catch
+            {
+                // Возвращаем null, если не найдено
+                return null;
+            }
+
+            return null;
         }
 
         private void LoadPlayerCards()
         {
-            var cards = _gameLogic.GetPlayerCards(_playerInGameId);
+            var cards = _db.Cards
+                .Where(c => c.PlayerInGameId == _playerInGameId && c.GameSessionId == _gameSessionId)
+                .Take(6)
+                .ToList();
 
             flowLayoutPanelYourCards.Controls.Clear();
 
-            foreach (var card in cards.Take(6))
+            foreach (var card in cards)
             {
-                var btn = new Button
+                string imageName = $"{card.Rank}_{card.Suit}.png";
+                var image = GetCardImage(imageName);
+
+                // Если изображение не найдено, используем обратную сторону
+                if (image == null)
                 {
-                    Text = $"{card.Suit}{card.Rank}",
-                    Width = 60,
-                    Height = 90,
-                    BackColor = Color.White,
-                    ForeColor = Color.Black,
+                    image = GetCardImage("BackOfCard.png");
+                }
+
+                var pictureBox = new PictureBox
+                {
+                    Width = 80,
+                    Height = 120,
+                    SizeMode = PictureBoxSizeMode.StretchImage,
+                    Image = image, // Теперь только image, без BackOfCard
                     Tag = card
                 };
-                btn.Click += CardButton_Click;
-                flowLayoutPanelYourCards.Controls.Add(btn);
+
+                pictureBox.Click += CardPictureBox_Click;
+                flowLayoutPanelYourCards.Controls.Add(pictureBox);
             }
         }
-        
 
-        private async void CardButton_Click(object sender, EventArgs e)
+        private async void CardPictureBox_Click(object sender, EventArgs e)
         {
-            var btn = sender as Button;
-            var card = btn?.Tag as Card;
+            var pb = sender as PictureBox;
+            if (pb?.Tag is Card selectedCard)
+            {
+                await _gameLogic.MakeAttackAsync(_playerInGameId, selectedCard);
+                LoadPlayerCards(); // Обновляем руку после хода
+                UpdateTable();
+            }
+        }
 
-            if (card == null) return;
+        private void UpdateTable()
+        {
+            var playedCards = _db.Cards
+                .Where(c => c.TurnId.HasValue && c.GameSessionId == _gameSessionId)
+                .ToList();
 
-            await _gameLogic.MakeAttackAsync(_playerInGameId, card);
-            LoadPlayerCards();
+            flowLayoutPanelTable.Controls.Clear();
+
+            foreach (var card in playedCards)
+            {
+                string imageName = $"{card.Rank}_{card.Suit}.png";
+                var image = GetCardImage(imageName) ?? GetCardImage("BackOfCard.png");
+
+                var pictureBox = new PictureBox
+                {
+                    Width = 80,
+                    Height = 120,
+                    SizeMode = PictureBoxSizeMode.StretchImage,
+                    Image = image
+                };
+
+                flowLayoutPanelTable.Controls.Add(pictureBox);
+            }
         }
 
         private async void btnNextTurn_Click(object sender, EventArgs e)

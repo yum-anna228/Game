@@ -95,7 +95,7 @@ namespace Game
                 GameSessionId = _gameSessionId,
                 AttackerPlayerInGameId = playerInGameId,
                 DefenderPlayerInGameId = GetNextPlayer(playerInGameId),
-                Timestamp = DateTime.Now
+                Timestamp = DateTime.UtcNow
             };
 
             card.TurnId = turn.Id;
