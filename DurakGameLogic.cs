@@ -72,16 +72,27 @@ namespace Game
         public void DealCards()
         {
             var players = _db.PlayerInGames
-                .Where(p => p.GameSessionId == _gameSessionId)
-                .ToList();
+        .Where(p => p.GameSessionId == _gameSessionId)
+        .ToList();
 
             int cardsPerPlayer = 6;
 
-            for (int i = 0; i < cardsPerPlayer * players.Count; i++)
+            for (int i = 0; i < players.Count; i++)
             {
-                var card = _deck[i % players.Count];
-                card.PlayerInGameId = players[i % players.Count].Id;
-                _db.Cards.Add(card);
+                var player = players[i];
+
+                // Берём 6 карт для игрока
+                for (int j = 0; j < cardsPerPlayer; j++)
+                {
+                    if (_deck.Count == 0) break;
+
+                    var card = _deck[0];
+                    card.PlayerInGameId = player.Id;
+                    card.TurnId = null;
+                    _deck.RemoveAt(0);
+
+                    _db.Cards.Add(card);
+                }
             }
 
             _db.SaveChanges();
@@ -176,7 +187,7 @@ namespace Game
 
         public void NewRound()
         {
-            // Здесь можно реализовать добор карт из колоды
+
         }
     }
 }

@@ -13,11 +13,25 @@ namespace Game
 
         public GameTableFormFor2Players(Guid sessionId, Guid playerInGameId, GameDbContext db)
         {
-            InitializeComponent();
+            if (db == null)
+            {
+                MessageBox.Show("Ошибка: База данных не инициализирована");
+                return;
+            }
+
+            InitializeComponent(); // Теперь после проверки
 
             _db = db;
             _gameSessionId = sessionId;
             _playerInGameId = playerInGameId;
+
+            var session = _db.GameSessions.Find(sessionId);
+            if (session == null)
+            {
+                MessageBox.Show("Ошибка при запуске формы: Сессия не найдена");
+                return;
+            }
+
             _gameLogic = new DurakGameLogic(_db, _gameSessionId);
             LoadPlayerCards();
             ShowTrump();
@@ -86,8 +100,24 @@ namespace Game
             var pb = sender as PictureBox;
             if (pb?.Tag is Card selectedCard)
             {
-                await _gameLogic.MakeAttackAsync(_playerInGameId, selectedCard);
-                LoadPlayerCards(); // Обновляем руку после хода
+                var player = _db.PlayerInGames.Find(_playerInGameId);
+
+                if (player == null) return;
+
+                if (player.IsAttacker)
+                {
+                    await _gameLogic.MakeAttackAsync(_playerInGameId, selectedCard);
+                }
+                else if (player.IsDefender)
+                {
+                    var lastAttackCard = _db.Cards.FirstOrDefault(c => c.TurnId.HasValue && c.GameSessionId == _gameSessionId);
+                    if (lastAttackCard != null)
+                    {
+                        await _gameLogic.MakeDefenceAsync(_playerInGameId, selectedCard, lastAttackCard);
+                    }
+                }
+
+                LoadPlayerCards();
                 UpdateTable();
             }
         }
@@ -121,6 +151,8 @@ namespace Game
         {
             await _gameLogic.EndBoutAsync(GetNextPlayerId());
             MessageBox.Show("Ход передан");
+            LoadPlayerCards();
+            UpdateTable();
         }
 
         private Guid GetNextPlayerId()
@@ -137,20 +169,104 @@ namespace Game
                 lblTrumpSuit.Text = $"Козырь: {session.TrumpSuit}";
         }
 
-        private void btnBit_Click(object sender, EventArgs e)
+        private async void btnBit_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Вы нажали 'Бито'");
+            var playedCards = _db.Cards.Where(c => c.TurnId.HasValue).ToList();
+            if (playedCards.Count == 0) return;
+
+            foreach (var card in playedCards)
+            {
+                card.TurnId = null;
+                card.PlayerInGameId = Guid.Empty; // освобождаем карты
+            }
+
+            _db.Cards.UpdateRange(playedCards);
+            await _db.SaveChangesAsync();
+
+            LoadPlayerCards();
+            UpdateTable();
+            SwitchTurn(); // смени ход
         }
 
-        private void btnTake_Click(object sender, EventArgs e)
+        private async void btnTake_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Вы нажали 'Взять'");
+            var playedCards = _db.Cards.Where(c => c.TurnId.HasValue).ToList();
+            if (playedCards.Count == 0) return;
+
+            foreach (var card in playedCards)
+            {
+                card.TurnId = null;
+                card.PlayerInGameId = _playerInGameId;
+            }
+
+            _db.Cards.UpdateRange(playedCards);
+            await _db.SaveChangesAsync();
+
+            LoadPlayerCards();
+            UpdateTable();
+        }
+
+        private async void SwitchTurn()
+        {
+            var players = _db.PlayerInGames
+                .Where(p => p.GameSessionId == _gameSessionId)
+                .ToList();
+
+            foreach (var p in players)
+            {
+                p.IsAttacker = !p.IsAttacker;
+                p.IsDefender = !p.IsDefender;
+            }
+
+            _db.PlayerInGames.UpdateRange(players);
+            await _db.SaveChangesAsync();
         }
 
         public void SetPlayerInGame(Guid sessionId, Guid playerInGameId)
         {
+            if (_db == null)
+            {
+                MessageBox.Show("Ошибка: База данных не инициализирована");
+                return;
+            }
+
             _gameSessionId = sessionId;
             _playerInGameId = playerInGameId;
+
+            var session = _db.GameSessions.Find(sessionId);
+            if (session == null)
+            {
+                MessageBox.Show("Ошибка: Сессия не найдена");
+                return;
+            }
+
+            LoadPlayerCards();
+            ShowTrump();
+        }
+
+        private async Task DrawCardsIfNeeded()
+        {
+            var playerCards = _db.Cards
+                .Where(c => c.PlayerInGameId == _playerInGameId)
+                .ToList();
+
+            int cardsNeeded = 6 - playerCards.Count;
+            if (cardsNeeded <= 0) return;
+
+            var availableCards = _db.Cards
+                .Where(c => c.PlayerInGameId == null || c.PlayerInGameId == Guid.Empty)
+                .Take(cardsNeeded)
+                .ToList();
+
+            foreach (var card in availableCards)
+            {
+                card.PlayerInGameId = _playerInGameId;
+            }
+
+            _db.Cards.UpdateRange(availableCards);
+            await _db.SaveChangesAsync();
+
+            LoadPlayerCards();
         }
     }
 }

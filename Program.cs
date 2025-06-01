@@ -10,7 +10,7 @@ namespace Game
     internal static class Program
     {
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
             ApplicationConfiguration.Initialize();
 
@@ -44,8 +44,37 @@ namespace Game
 
 
             var serviceProvider = services.BuildServiceProvider();
-            var gameForm = serviceProvider.GetRequiredService<GameForm>();
-            Application.Run(gameForm);
+
+            if (args.Length >= 4 && args[0] == "--session" && args[2] == "--player")
+            {
+                if (Guid.TryParse(args[1], out var sessionId) && Guid.TryParse(args[3], out var playerInGameId))
+                {
+                    try
+                    {
+                        var dbContext = serviceProvider.GetRequiredService<GameDbContext>();
+                        var gameTableForm = new GameTableFormFor2Players(sessionId, playerInGameId, dbContext);
+                        Application.Run(gameTableForm);
+                        return;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Ошибка при запуске формы игры: {ex.Message}");
+                    }
+                }
+            }
+
+            // По умолчанию запускаем главное меню
+            try
+            {
+                var mainMenu = serviceProvider.GetRequiredService<GameForm>();
+                Application.Run(mainMenu);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при запуске главного меню: {ex.Message}");
+            }
+
+
         }
     }
 }

@@ -10,9 +10,9 @@ namespace Game
 
         public SelectModeForm(GameDbContext db, IServiceProvider serviceProvider)
         {
+            InitializeComponent();
             _db = db;
             _serviceProvider = serviceProvider;
-            InitializeComponent();
         }
 
         public void SetCurrentUser(User user)
@@ -45,6 +45,8 @@ namespace Game
 
         private void StartGame(int playerCount)
         {
+            MessageBox.Show("StartGame начат");
+
             if (_currentUser == null)
             {
                 MessageBox.Show("Ошибка: пользователь не установлен.");
@@ -78,19 +80,33 @@ namespace Game
 
             _db.PlayerInGames.AddRange(players);
 
-            // --- Генерация и добавление карт ---
             var deckService = new DeckService(session.TrumpSuit);
             var cards = deckService.CreateDeck(session.Id, players.Select(p => p.Id).ToList());
-
             _db.Cards.AddRange(cards);
-            // ----------------------------------
 
-            _db.SaveChanges(); // Сохраняем всё в БД
+            try
+            {
+                _db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при сохранении в БД: {ex.Message}");
+                return;
+            }
 
-            Process.Start(Application.ExecutablePath, $"--session {session.Id} --player {players[0].Id}");
-            Process.Start(Application.ExecutablePath, $"--session {session.Id} --player {players[1].Id}");
+            MessageBox.Show($"Сессия: {session.Id}\nИгрок 1: {players[0].Id}\nИгрок 2: {players[1].Id}");
 
-            Application.Exit();
+            try
+            {
+                Process.Start(Application.ExecutablePath, $"--session {session.Id} --player {players[0].Id}");
+                Process.Start(Application.ExecutablePath, $"--session {session.Id} --player {players[1].Id}");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при запуске клиента: {ex.Message}");
+            }
+
+            this.Close(); // вместо Application.Exit()
         }
 
         private Guid GetSecondUserId(Guid currentUserId)
