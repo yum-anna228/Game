@@ -1,6 +1,6 @@
 ﻿namespace Game
 {
-    partial class Rules
+    partial class RuleForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,22 +28,39 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Rules));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RuleForm));
+            lbl_rule = new Label();
             SuspendLayout();
             // 
-            // Rules
+            // lbl_rule
+            // 
+            lbl_rule.AutoSize = true;
+            lbl_rule.BackColor = Color.Transparent;
+            lbl_rule.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            lbl_rule.ForeColor = Color.White;
+            lbl_rule.Location = new Point(52, 37);
+            lbl_rule.Name = "lbl_rule";
+            lbl_rule.Size = new Size(127, 38);
+            lbl_rule.TabIndex = 0;
+            lbl_rule.Text = "Правила";
+            // 
+            // RuleForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(800, 450);
+            Controls.Add(lbl_rule);
             DoubleBuffered = true;
-            Name = "Rules";
-            Text = "Rules";
+            Name = "RuleForm";
+            Text = "RuleForm";
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
+
+        private Label lbl_rule;
     }
 }

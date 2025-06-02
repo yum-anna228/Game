@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Game
 {
-    public partial class GameTableFormFor3Players : Form
+    public partial class RuleForm : Form
     {
-        public GameTableFormFor3Players()
+        public RuleForm()
         {
             InitializeComponent();
         }
