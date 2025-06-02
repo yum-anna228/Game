@@ -1,5 +1,9 @@
 namespace Game
 {
+
+    /// <summary>
+    /// основная форма приложения
+    /// </summary>
     public partial class GameForm : Form
     {
         private readonly IAuthService _authService;

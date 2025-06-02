@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Game
+﻿namespace Game
 {
+    /// <summary>
+    /// Сервис аутентификации, реализующий логику регистрации и входа пользователей
+    /// </summary>
     public class AuthService : IAuthService
     {
         private readonly IUserRepository _userRepo;
@@ -17,6 +14,9 @@ namespace Game
             _passwordHasher = passwordHasher;
         }
 
+        /// <summary>
+        /// Асинхронно регистрирует нового пользователя с указанным логином и паролем
+        /// </summary>
         public async Task<bool> RegisterAsync(string username, string password)
         {
             if (await _userRepo.GetByUsernameAsync(username) != null) return false;
@@ -34,6 +34,9 @@ namespace Game
             return true;
         }
 
+        /// <summary>
+        /// Асинхронно выполняет вход пользователя по указанному логину и паролю
+        /// </summary>
         public async Task<User?> LoginAsync(string username, string password)
         {
             var user = await _userRepo.GetByUsernameAsync(username); 

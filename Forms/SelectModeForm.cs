@@ -2,6 +2,9 @@
 
 namespace Game
 {
+    /// <summary>
+    /// форма, позволяющая пользователю выбрать режим игры: 2 игрока или 3 игрока,а также перейти к просмотру статистики
+    /// </summary>
     public partial class SelectModeForm : Form
     {
         private readonly GameDbContext _db;
@@ -43,6 +46,10 @@ namespace Game
             this.Hide();
         }
 
+        /// <summary>
+        /// Начинает новую игровую сессию с заданным количеством игроков
+        /// Создаёт сессию, игроков, колоду карт и запускает клиентские процессы
+        /// </summary>
         private void StartGame(int playerCount)
         {
             MessageBox.Show("StartGame начат");
@@ -106,9 +113,13 @@ namespace Game
                 MessageBox.Show($"Ошибка при запуске клиента: {ex.Message}");
             }
 
-            this.Close(); // вместо Application.Exit()
+            this.Close(); 
         }
 
+        /// <summary>
+        ///  Получает ID второго пользователя (не текущего)
+        /// Если такой пользователь не найден, создаёт бота и сохраняет в БД
+        /// </summary>
         private Guid GetSecondUserId(Guid currentUserId)
         {
             var user = _db.Users.FirstOrDefault(u => u.Id != currentUserId);
@@ -126,6 +137,10 @@ namespace Game
             return user.Id;
         }
 
+
+        /// <summary>
+        /// Возвращает случайную масть, которая будет козырной в текущей игре
+        /// </summary>
         private string GetRandomTrumpSuit()
         {
             var suits = new[] { "♠️", "♥️", "♦️", "♣️" };

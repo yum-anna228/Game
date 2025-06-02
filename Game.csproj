@@ -19,6 +19,19 @@
 
   <ItemGroup>
     <None Remove="Resources\Clubs_Ace.jpg" />
+    <None Remove="Resources\Hearts_Queen.png" />
+    <None Remove="Resources\Hearts_Seven.png" />
+    <None Remove="Resources\Hearts_Six.png" />
+    <None Remove="Resources\Hearts_Ten.png" />
+    <None Remove="Resources\Spades_Ace.png" />
+    <None Remove="Resources\Spades_Eight.png" />
+    <None Remove="Resources\Spades_Jack.png" />
+    <None Remove="Resources\Spades_King.png" />
+    <None Remove="Resources\Spades_Nine.png" />
+    <None Remove="Resources\Spades_Queen.png" />
+    <None Remove="Resources\Spades_Seven.png" />
+    <None Remove="Resources\Spades_Six.png" />
+    <None Remove="Resources\Spades_Ten.png" />
   </ItemGroup>
 
   <ItemGroup>

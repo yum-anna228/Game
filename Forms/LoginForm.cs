@@ -3,6 +3,9 @@ using System;
 
 namespace Game
 {
+    /// <summary>
+    /// форма аутентификации пользователя в приложение
+    /// </summary>
     public partial class LoginForm : Form
     {
         private readonly IAuthService _authService;
@@ -18,7 +21,7 @@ namespace Game
             _serviceProvider = serviceProvider;
         }
 
-        // Конструктор с сессией
+        
         public LoginForm(IAuthService authService, GameDbContext db, Guid? gameSessionId, IServiceProvider serviceProvider)
             : this(authService, db, serviceProvider)
         {

@@ -41,7 +41,6 @@ namespace Game
         {
             try
             {
-                // Полное имя ресурса
                 string resourceName = "Game.Resources." + imageName;
 
                 using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName))
@@ -52,10 +51,9 @@ namespace Game
                     }
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                // Возвращаем null, если не найдено
-                return null;
+                MessageBox.Show($"Ошибка при загрузке изображения {imageName}: {ex.Message}");
             }
 
             return null;

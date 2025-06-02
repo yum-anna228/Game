@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Game
+﻿namespace Game
 {
     /// <summary>
     /// класс, который представляет пользователя

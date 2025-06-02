@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace Game
 {
@@ -63,12 +59,18 @@ namespace Game
             }
         }
 
+        /// <summary>
+        /// перемешивает колоду
+        /// </summary>
         private void ShuffleDeck()
         {
             var random = new Random();
             _deck = _deck.OrderBy(c => random.Next()).ToList();
         }
 
+        /// <summary>
+        /// Раздаёт по 6 карт каждому игроку в начале игры
+        /// </summary>
         public void DealCards()
         {
             var players = _db.PlayerInGames
@@ -98,6 +100,9 @@ namespace Game
             _db.SaveChanges();
         }
 
+        /// <summary>
+        /// Выполняет атакующий ход: создаёт запись о ходе и устанавливает карту как использованную
+        /// </summary>
         public async Task MakeAttackAsync(Guid playerInGameId, Card card)
         {
             var turn = new Turn
@@ -117,6 +122,9 @@ namespace Game
             await _db.SaveChangesAsync();
         }
 
+        /// <summary>
+        /// Выполняет защитный ход: проверяет возможность отбить атаку и сохраняет карту защиты
+        /// </summary>
         public async Task MakeDefenceAsync(Guid defenderId, Card defendCard, Card attackCard)
         {
             if (!CanBeat(attackCard, defendCard))
@@ -132,6 +140,9 @@ namespace Game
             await _db.SaveChangesAsync();
         }
 
+        /// <summary>
+        /// Проверяет, может ли одна карта побить другую согласно правилам игры "Дурак"
+        /// </summary>
         public bool CanBeat(Card attackCard, Card defendCard)
         {
             // Если масти одинаковые — сравниваем по значению
@@ -145,11 +156,17 @@ namespace Game
             return false;
         }
 
+        /// <summary>
+        /// Возвращает числовое значение ранга карты для сравнения
+        /// </summary>
         private int GetRankValue(string rank)
         {
             return RankValues.TryGetValue(rank, out var value) ? value : 0;
         }
 
+        /// <summary>
+        /// Получает идентификатор следующего игрока по порядку
+        /// </summary>
         private Guid GetNextPlayer(Guid currentId)
         {
             var players = _db.PlayerInGames
@@ -162,6 +179,9 @@ namespace Game
             return players[(index + 1) % players.Count].Id;
         }
 
+        /// <summary>
+        ///  Возвращает список карт, находящихся на руках у указанного игрока и не участвующих в текущем ходе
+        /// </summary>
         public List<Card> GetPlayerCards(Guid playerInGameId)
         {
             return _db.Cards
@@ -169,6 +189,9 @@ namespace Game
                 .ToList();
         }
 
+        /// <summary>
+        /// Завершает бой: все карты из текущего хода передаются обороняющемуся игроку
+        /// </summary>
         public async Task EndBoutAsync(Guid defenderId)
         {
             var boutCards = await _db.Cards

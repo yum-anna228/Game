@@ -20,6 +20,9 @@ namespace Game
         public async Task<User?> GetWithStatisticsAsync(Guid userId)
             => await _db.Users.Include(u => u.Statistics).FirstOrDefaultAsync(u => u.Id == userId);
 
+        /// <summary>
+        /// добавляет пользователя в бд
+        /// </summary>
         public async Task AddAsync(User user)
         {
             await _db.Users.AddAsync(user);

@@ -61,6 +61,376 @@ namespace Game.Properties {
         }
         
         /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] BackOfCard {
+            get {
+                object obj = ResourceManager.GetObject("BackOfCard", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] Clubs_Ace {
+            get {
+                object obj = ResourceManager.GetObject("Clubs_Ace", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] Clubs_Eight {
+            get {
+                object obj = ResourceManager.GetObject("Clubs_Eight", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] Clubs_Jack {
+            get {
+                object obj = ResourceManager.GetObject("Clubs_Jack", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] Clubs_King {
+            get {
+                object obj = ResourceManager.GetObject("Clubs_King", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] Clubs_Nine {
+            get {
+                object obj = ResourceManager.GetObject("Clubs_Nine", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] Clubs_Queen {
+            get {
+                object obj = ResourceManager.GetObject("Clubs_Queen", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] Clubs_Seven {
+            get {
+                object obj = ResourceManager.GetObject("Clubs_Seven", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] Clubs_Six {
+            get {
+                object obj = ResourceManager.GetObject("Clubs_Six", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] Clubs_Ten {
+            get {
+                object obj = ResourceManager.GetObject("Clubs_Ten", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] Diamonds_Ace {
+            get {
+                object obj = ResourceManager.GetObject("Diamonds_Ace", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] Diamonds_Eight {
+            get {
+                object obj = ResourceManager.GetObject("Diamonds_Eight", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] Diamonds_Jack {
+            get {
+                object obj = ResourceManager.GetObject("Diamonds_Jack", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] Diamonds_King {
+            get {
+                object obj = ResourceManager.GetObject("Diamonds_King", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] Diamonds_Nine {
+            get {
+                object obj = ResourceManager.GetObject("Diamonds_Nine", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] Diamonds_Queen {
+            get {
+                object obj = ResourceManager.GetObject("Diamonds_Queen", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] Diamonds_Seven {
+            get {
+                object obj = ResourceManager.GetObject("Diamonds_Seven", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] Diamonds_Six {
+            get {
+                object obj = ResourceManager.GetObject("Diamonds_Six", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] Diamonds_Ten {
+            get {
+                object obj = ResourceManager.GetObject("Diamonds_Ten", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] Hearts_Ace {
+            get {
+                object obj = ResourceManager.GetObject("Hearts_Ace", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] Hearts_Eight {
+            get {
+                object obj = ResourceManager.GetObject("Hearts_Eight", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] Hearts_Jack {
+            get {
+                object obj = ResourceManager.GetObject("Hearts_Jack", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] Hearts_King {
+            get {
+                object obj = ResourceManager.GetObject("Hearts_King", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] Hearts_Nine {
+            get {
+                object obj = ResourceManager.GetObject("Hearts_Nine", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] Hearts_Queen {
+            get {
+                object obj = ResourceManager.GetObject("Hearts_Queen", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] Hearts_Seven {
+            get {
+                object obj = ResourceManager.GetObject("Hearts_Seven", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] Hearts_Six {
+            get {
+                object obj = ResourceManager.GetObject("Hearts_Six", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] Hearts_Ten {
+            get {
+                object obj = ResourceManager.GetObject("Hearts_Ten", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] Spades_Ace {
+            get {
+                object obj = ResourceManager.GetObject("Spades_Ace", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] Spades_Eight {
+            get {
+                object obj = ResourceManager.GetObject("Spades_Eight", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] Spades_Jack {
+            get {
+                object obj = ResourceManager.GetObject("Spades_Jack", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] Spades_King {
+            get {
+                object obj = ResourceManager.GetObject("Spades_King", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] Spades_Nine {
+            get {
+                object obj = ResourceManager.GetObject("Spades_Nine", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] Spades_Queen {
+            get {
+                object obj = ResourceManager.GetObject("Spades_Queen", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] Spades_Seven {
+            get {
+                object obj = ResourceManager.GetObject("Spades_Seven", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] Spades_Six {
+            get {
+                object obj = ResourceManager.GetObject("Spades_Six", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] Spades_Ten {
+            get {
+                object obj = ResourceManager.GetObject("Spades_Ten", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap главная_форма {

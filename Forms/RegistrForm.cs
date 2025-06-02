@@ -4,6 +4,10 @@ using System;
 
 namespace Game
 {
+
+    /// <summary>
+    /// форма регистрации
+    /// </summary>
     public partial class RegistrForm : Form
     {
         private readonly IAuthService _authService;
