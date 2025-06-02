@@ -1,10 +1,10 @@
 ﻿using System.Data;
-using System.Reflection;
 
 namespace Game
 {
     public partial class GameTableFormFor2Players : Form
     {
+        private System.Windows.Forms.Timer _uiUpdateTimer;
         private readonly GameDbContext _db;
         private  Guid _gameSessionId;
         private  Guid _playerInGameId;
@@ -33,31 +33,30 @@ namespace Game
             }
 
             _gameLogic = new DurakGameLogic(_db, _gameSessionId);
+            StartUIUpdateTimer();
             LoadPlayerCards();
             ShowTrump();
+            UpdateStatus();
         }
 
-        private Image GetCardImage(string imageName)
+
+        private void StartUIUpdateTimer()
         {
-            try
+            _uiUpdateTimer = new System.Windows.Forms.Timer(); // Это System.Windows.Forms.Timer
+            _uiUpdateTimer.Interval = 1000; // Интервал обновления UI в мс
+            _uiUpdateTimer.Tick += (s, e) =>
             {
-                string resourceName = "Game.Resources." + imageName;
-
-                using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName))
+                // Вызываем UI-обновление в потоке интерфейса
+                this.Invoke((System.Windows.Forms.MethodInvoker)delegate
                 {
-                    if (stream != null)
-                    {
-                        return Image.FromStream(stream);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ошибка при загрузке изображения {imageName}: {ex.Message}");
-            }
-
-            return null;
+                    LoadPlayerCards();
+                    UpdateTable();
+                    UpdateStatus();
+                });
+            };
+            _uiUpdateTimer.Start();
         }
+
 
         private void LoadPlayerCards()
         {
@@ -70,54 +69,48 @@ namespace Game
 
             foreach (var card in cards)
             {
-                string imageName = $"{card.Rank}_{card.Suit}.png";
-                var image = GetCardImage(imageName);
-
-                // Если изображение не найдено, используем обратную сторону
-                if (image == null)
+                var btn = new Button
                 {
-                    image = GetCardImage("BackOfCard.png");
-                }
-
-                var pictureBox = new PictureBox
-                {
+                    Text = $"{card.Suit}{card.Rank}",
                     Width = 80,
                     Height = 120,
-                    SizeMode = PictureBoxSizeMode.StretchImage,
-                    Image = image, // Теперь только image, без BackOfCard
+                    Font = new Font("Arial", 10),
+                    TextAlign = ContentAlignment.MiddleCenter,
                     Tag = card
                 };
 
-                pictureBox.Click += CardPictureBox_Click;
-                flowLayoutPanelYourCards.Controls.Add(pictureBox);
+                btn.Click += CardButton_Click;
+                flowLayoutPanelYourCards.Controls.Add(btn);
             }
         }
 
-        private async void CardPictureBox_Click(object sender, EventArgs e)
+        private async void CardButton_Click(object sender, EventArgs e)
         {
-            var pb = sender as PictureBox;
-            if (pb?.Tag is Card selectedCard)
+            var btn = sender as Button;
+            var card = btn?.Tag as Card;
+
+            if (card == null) return;
+
+            var player = _db.PlayerInGames.Find(_playerInGameId);
+            if (player == null) return;
+
+            if (player.IsAttacker)
             {
-                var player = _db.PlayerInGames.Find(_playerInGameId);
-
-                if (player == null) return;
-
-                if (player.IsAttacker)
-                {
-                    await _gameLogic.MakeAttackAsync(_playerInGameId, selectedCard);
-                }
-                else if (player.IsDefender)
-                {
-                    var lastAttackCard = _db.Cards.FirstOrDefault(c => c.TurnId.HasValue && c.GameSessionId == _gameSessionId);
-                    if (lastAttackCard != null)
-                    {
-                        await _gameLogic.MakeDefenceAsync(_playerInGameId, selectedCard, lastAttackCard);
-                    }
-                }
-
-                LoadPlayerCards();
-                UpdateTable();
+                await _gameLogic.MakeAttackAsync(_playerInGameId, card);
             }
+            else if (player.IsDefender)
+            {
+                var lastAttackCard = _db.Cards.FirstOrDefault(c => c.TurnId.HasValue && c.GameSessionId == _gameSessionId);
+                if (lastAttackCard != null)
+                {
+                    await _gameLogic.MakeDefenceAsync(_playerInGameId, card, lastAttackCard);
+                }
+            }
+
+            await _db.SaveChangesAsync(); // Сохраняем все изменения в БД
+            LoadPlayerCards();
+            UpdateTable();
+            UpdateStatus();
         }
 
         private void UpdateTable()
@@ -130,27 +123,25 @@ namespace Game
 
             foreach (var card in playedCards)
             {
-                string imageName = $"{card.Rank}_{card.Suit}.png";
-                var image = GetCardImage(imageName) ?? GetCardImage("BackOfCard.png");
-
-                var pictureBox = new PictureBox
+                var label = new Label
                 {
+                    Text = $"{card.Suit}{card.Rank}",
                     Width = 80,
                     Height = 120,
-                    SizeMode = PictureBoxSizeMode.StretchImage,
-                    Image = image
+                    TextAlign = ContentAlignment.MiddleCenter,
+                    BorderStyle = BorderStyle.FixedSingle
                 };
 
-                flowLayoutPanelTable.Controls.Add(pictureBox);
+                flowLayoutPanelTable.Controls.Add(label);
             }
         }
 
         private async void btnNextTurn_Click(object sender, EventArgs e)
         {
-            await _gameLogic.EndBoutAsync(GetNextPlayerId());
-            MessageBox.Show("Ход передан");
+            await SwitchTurnAsync();
             LoadPlayerCards();
             UpdateTable();
+            UpdateStatus();
         }
 
         private Guid GetNextPlayerId()
@@ -174,16 +165,18 @@ namespace Game
 
             foreach (var card in playedCards)
             {
+                // Убираем TurnId, чтобы показать, что карта больше не на столе
                 card.TurnId = null;
-                card.PlayerInGameId = Guid.Empty; // освобождаем карты
+
+                // Не делаем PlayerInGameId = null — это нарушает внешний ключ
             }
 
             _db.Cards.UpdateRange(playedCards);
             await _db.SaveChangesAsync();
 
-            LoadPlayerCards();
-            UpdateTable();
-            SwitchTurn(); // смени ход
+            //LoadPlayerCards();
+            //UpdateTable();
+            await SwitchTurnAsync(); // Смена хода после бита
         }
 
         private async void btnTake_Click(object sender, EventArgs e)
@@ -204,20 +197,45 @@ namespace Game
             UpdateTable();
         }
 
-        private async void SwitchTurn()
+        private async Task SwitchTurnAsync()
         {
             var players = _db.PlayerInGames
                 .Where(p => p.GameSessionId == _gameSessionId)
                 .ToList();
 
-            foreach (var p in players)
+            if (players.Count != 2)
             {
-                p.IsAttacker = !p.IsAttacker;
-                p.IsDefender = !p.IsDefender;
+                MessageBox.Show("Неверное количество игроков");
+                return;
             }
+
+            var attacker = players.FirstOrDefault(p => p.IsAttacker);
+            var defender = players.FirstOrDefault(p => p.IsDefender);
+
+            if (attacker == null || defender == null)
+            {
+                MessageBox.Show("Не определены роли игроков");
+                return;
+            }
+
+            // Меняем роли местами
+            attacker.IsAttacker = false;
+            defender.IsAttacker = true;
+
+            attacker.IsDefender = true;
+            defender.IsDefender = false;
 
             _db.PlayerInGames.UpdateRange(players);
             await _db.SaveChangesAsync();
+        }
+
+        private void UpdateStatus()
+        {
+            var player = _db.PlayerInGames.Find(_playerInGameId);
+            if (player != null)
+            {
+                lblStatus.Text = player.IsAttacker ? "Вы атакуете" : "Вы защищаетесь";
+            }
         }
 
         public void SetPlayerInGame(Guid sessionId, Guid playerInGameId)
@@ -240,6 +258,7 @@ namespace Game
 
             LoadPlayerCards();
             ShowTrump();
+            UpdateStatus();
         }
 
         private async Task DrawCardsIfNeeded()
@@ -265,6 +284,7 @@ namespace Game
             await _db.SaveChangesAsync();
 
             LoadPlayerCards();
+            UpdateStatus();
         }
     }
 }

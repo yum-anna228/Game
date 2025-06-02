@@ -37,6 +37,7 @@
             btnBit = new Button();
             btnTake = new Button();
             btnNextTurn = new Button();
+            lblStatus = new Label();
             SuspendLayout();
             // 
             // button1
@@ -114,6 +115,15 @@
             btnNextTurn.UseVisualStyleBackColor = false;
             btnNextTurn.Click += btnNextTurn_Click;
             // 
+            // lblStatus
+            // 
+            lblStatus.AutoSize = true;
+            lblStatus.Location = new Point(69, 91);
+            lblStatus.Name = "lblStatus";
+            lblStatus.Size = new Size(50, 20);
+            lblStatus.TabIndex = 8;
+            lblStatus.Text = "label1";
+            // 
             // GameTableFormFor2Players
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -121,6 +131,7 @@
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(800, 450);
+            Controls.Add(lblStatus);
             Controls.Add(btnNextTurn);
             Controls.Add(btnTake);
             Controls.Add(btnBit);
@@ -146,5 +157,6 @@
         private Button btnBit;
         private Button btnTake;
         private Button btnNextTurn;
+        private Label lblStatus;
     }
 }

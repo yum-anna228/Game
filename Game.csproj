@@ -18,7 +18,31 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Resources\BackOfCard.png" />
     <None Remove="Resources\Clubs_Ace.jpg" />
+    <None Remove="Resources\Clubs_Ace.png" />
+    <None Remove="Resources\Clubs_Eight.png" />
+    <None Remove="Resources\Clubs_Jack.png" />
+    <None Remove="Resources\Clubs_King.png" />
+    <None Remove="Resources\Clubs_Nine.png" />
+    <None Remove="Resources\Clubs_Queen.png" />
+    <None Remove="Resources\Clubs_Seven.png" />
+    <None Remove="Resources\Clubs_Six.png" />
+    <None Remove="Resources\Clubs_Ten.png" />
+    <None Remove="Resources\Diamonds_Ace.png" />
+    <None Remove="Resources\Diamonds_Eight.png" />
+    <None Remove="Resources\Diamonds_Jack.png" />
+    <None Remove="Resources\Diamonds_King.png" />
+    <None Remove="Resources\Diamonds_Nine.png" />
+    <None Remove="Resources\Diamonds_Queen.png" />
+    <None Remove="Resources\Diamonds_Seven.png" />
+    <None Remove="Resources\Diamonds_Six.png" />
+    <None Remove="Resources\Diamonds_Ten.png" />
+    <None Remove="Resources\Hearts_Ace.png" />
+    <None Remove="Resources\Hearts_Eight.png" />
+    <None Remove="Resources\Hearts_Jack.png" />
+    <None Remove="Resources\Hearts_King.png" />
+    <None Remove="Resources\Hearts_Nine.png" />
     <None Remove="Resources\Hearts_Queen.png" />
     <None Remove="Resources\Hearts_Seven.png" />
     <None Remove="Resources\Hearts_Six.png" />
@@ -48,6 +72,33 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.5" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.5" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\BackOfCard.png" />
+    <Resource Include="Resources\Clubs_Ace.png" />
+    <Resource Include="Resources\Clubs_Eight.png" />
+    <Resource Include="Resources\Clubs_Jack.png" />
+    <Resource Include="Resources\Clubs_King.png" />
+    <Resource Include="Resources\Clubs_Nine.png" />
+    <Resource Include="Resources\Clubs_Queen.png" />
+    <Resource Include="Resources\Clubs_Seven.png" />
+    <Resource Include="Resources\Clubs_Six.png" />
+    <Resource Include="Resources\Clubs_Ten.png" />
+    <Resource Include="Resources\Diamonds_Ace.png" />
+    <Resource Include="Resources\Diamonds_Eight.png" />
+    <Resource Include="Resources\Diamonds_Jack.png" />
+    <Resource Include="Resources\Diamonds_King.png" />
+    <Resource Include="Resources\Diamonds_Nine.png" />
+    <Resource Include="Resources\Diamonds_Queen.png" />
+    <Resource Include="Resources\Diamonds_Seven.png" />
+    <Resource Include="Resources\Diamonds_Six.png" />
+    <Resource Include="Resources\Diamonds_Ten.png" />
+    <Resource Include="Resources\Hearts_Ace.png" />
+    <Resource Include="Resources\Hearts_Eight.png" />
+    <Resource Include="Resources\Hearts_Jack.png" />
+    <Resource Include="Resources\Hearts_King.png" />
+    <Resource Include="Resources\Hearts_Nine.png" />
   </ItemGroup>
 
   <ItemGroup>
