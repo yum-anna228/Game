@@ -31,7 +31,6 @@
             btn_2players = new Button();
             btn_viewStatistics = new Button();
             btn_Exit = new Button();
-            label1 = new Label();
             SuspendLayout();
             // 
             // btn_2players
@@ -41,11 +40,11 @@
             btn_2players.FlatStyle = FlatStyle.Flat;
             btn_2players.Font = new Font("Segoe UI Semibold", 22F, FontStyle.Bold);
             btn_2players.ForeColor = Color.White;
-            btn_2players.Location = new Point(310, 160);
+            btn_2players.Location = new Point(187, 124);
             btn_2players.Name = "btn_2players";
-            btn_2players.Size = new Size(189, 91);
+            btn_2players.Size = new Size(409, 91);
             btn_2players.TabIndex = 0;
-            btn_2players.Text = "2 игрока";
+            btn_2players.Text = "Новая игра";
             btn_2players.UseVisualStyleBackColor = false;
             btn_2players.Click += btn_2players_Click;
             // 
@@ -56,9 +55,9 @@
             btn_viewStatistics.FlatStyle = FlatStyle.Flat;
             btn_viewStatistics.Font = new Font("Segoe UI Semibold", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 204);
             btn_viewStatistics.ForeColor = Color.White;
-            btn_viewStatistics.Location = new Point(300, 318);
+            btn_viewStatistics.Location = new Point(152, 221);
             btn_viewStatistics.Name = "btn_viewStatistics";
-            btn_viewStatistics.Size = new Size(504, 47);
+            btn_viewStatistics.Size = new Size(518, 52);
             btn_viewStatistics.TabIndex = 2;
             btn_viewStatistics.Text = "Посмотреть мою статистику";
             btn_viewStatistics.UseVisualStyleBackColor = false;
@@ -71,24 +70,12 @@
             btn_Exit.FlatStyle = FlatStyle.Flat;
             btn_Exit.Font = new Font("Segoe UI Semibold", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 204);
             btn_Exit.ForeColor = Color.White;
-            btn_Exit.Location = new Point(398, 371);
+            btn_Exit.Location = new Point(414, 369);
             btn_Exit.Name = "btn_Exit";
             btn_Exit.Size = new Size(342, 47);
             btn_Exit.TabIndex = 3;
             btn_Exit.Text = "Выйти из аккаунта";
             btn_Exit.UseVisualStyleBackColor = false;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.BackColor = Color.Transparent;
-            label1.Font = new Font("Segoe UI Semibold", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            label1.ForeColor = Color.White;
-            label1.Location = new Point(276, 81);
-            label1.Name = "label1";
-            label1.Size = new Size(248, 38);
-            label1.TabIndex = 4;
-            label1.Text = "Выберите режим";
             // 
             // SelectModeForm
             // 
@@ -97,7 +84,6 @@
             BackgroundImage = Properties.Resources.Снимок_экрана_2025_06_02_213959;
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(800, 450);
-            Controls.Add(label1);
             Controls.Add(btn_Exit);
             Controls.Add(btn_viewStatistics);
             Controls.Add(btn_2players);
@@ -106,7 +92,6 @@
             Text = "SelectModeForm";
             Load += SelectModeForm_Load;
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -114,6 +99,5 @@
         private Button btn_2players;
         private Button btn_viewStatistics;
         private Button btn_Exit;
-        private Label label1;
     }
 }

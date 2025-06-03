@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace Game
 {
@@ -6,12 +7,14 @@ namespace Game
     {
         private System.Windows.Forms.Timer _uiUpdateTimer;
         private readonly GameDbContext _db;
-        private  Guid _gameSessionId;
-        private  Guid _playerInGameId;
+        private Guid _gameSessionId;
+        private Guid _playerInGameId;
+        private readonly IServiceProvider _serviceProvider;
+        private DurakGameLogic _gameLogic;
+        private bool _deckFinished = false;
 
-        private readonly DurakGameLogic _gameLogic;
 
-        public GameTableFormFor2Players(Guid sessionId, Guid playerInGameId, GameDbContext db)
+        public GameTableFormFor2Players(GameDbContext db, IServiceProvider serviceProvider)
         {
             if (db == null)
             {
@@ -21,24 +24,33 @@ namespace Game
 
             InitializeComponent(); // Теперь после проверки
 
+            _serviceProvider = serviceProvider;
             _db = db;
-            _gameSessionId = sessionId;
-            _playerInGameId = playerInGameId;
-
-            var session = _db.GameSessions.Find(sessionId);
-            if (session == null)
-            {
-                MessageBox.Show("Ошибка при запуске формы: Сессия не найдена");
-                return;
-            }
-
-            _gameLogic = new DurakGameLogic(_db, _gameSessionId);
             StartUIUpdateTimer();
             LoadPlayerCards();
             ShowTrump();
             UpdateStatus();
         }
 
+        public void SetPlayerInGame(Guid sessionId, Guid playerInGameId)
+        {
+            _gameSessionId = sessionId;
+            _playerInGameId = playerInGameId;
+
+            var session = _db.GameSessions.Find(sessionId);
+            if (session == null)
+            {
+                MessageBox.Show("Ошибка: Сессия не найдена");
+                return;
+            }
+
+            _gameLogic = new DurakGameLogic(_db, _gameSessionId);
+            _deckFinished = false;
+
+            LoadPlayerCards();
+            ShowTrump();
+            UpdateStatus();
+        }
 
         private void StartUIUpdateTimer()
         {
@@ -111,6 +123,8 @@ namespace Game
             LoadPlayerCards();
             UpdateTable();
             UpdateStatus();
+            await DrawCardsIfNeeded();
+            //await CheckWinCondition();
         }
 
         private void UpdateTable()
@@ -174,9 +188,8 @@ namespace Game
             _db.Cards.UpdateRange(playedCards);
             await _db.SaveChangesAsync();
 
-            //LoadPlayerCards();
-            //UpdateTable();
             await SwitchTurnAsync(); // Смена хода после бита
+            //await CheckWinCondition();
         }
 
         private async void btnTake_Click(object sender, EventArgs e)
@@ -195,6 +208,7 @@ namespace Game
 
             LoadPlayerCards();
             UpdateTable();
+            //await CheckWinCondition();
         }
 
         private async Task SwitchTurnAsync()
@@ -227,6 +241,8 @@ namespace Game
 
             _db.PlayerInGames.UpdateRange(players);
             await _db.SaveChangesAsync();
+            await DrawCardsIfNeeded();
+            await CheckWinCondition();
         }
 
         private void UpdateStatus()
@@ -238,28 +254,6 @@ namespace Game
             }
         }
 
-        public void SetPlayerInGame(Guid sessionId, Guid playerInGameId)
-        {
-            if (_db == null)
-            {
-                MessageBox.Show("Ошибка: База данных не инициализирована");
-                return;
-            }
-
-            _gameSessionId = sessionId;
-            _playerInGameId = playerInGameId;
-
-            var session = _db.GameSessions.Find(sessionId);
-            if (session == null)
-            {
-                MessageBox.Show("Ошибка: Сессия не найдена");
-                return;
-            }
-
-            LoadPlayerCards();
-            ShowTrump();
-            UpdateStatus();
-        }
 
         private async Task DrawCardsIfNeeded()
         {
@@ -285,6 +279,128 @@ namespace Game
 
             LoadPlayerCards();
             UpdateStatus();
+
+            await CheckWinCondition();
+        }
+
+        private async Task CheckWinCondition()
+        {
+            if (_deckFinished) return;
+
+            var players = await _db.PlayerInGames
+                .Where(p => p.GameSessionId == _gameSessionId)
+                .ToListAsync();
+
+            if (players.Count != 2) return;
+
+            var player1 = players[0];
+            var player2 = players[1];
+
+            var player1Cards = await _db.Cards
+                .CountAsync(c => c.PlayerInGameId == player1.Id && c.TurnId == null);
+            var player2Cards = await _db.Cards
+                .CountAsync(c => c.PlayerInGameId == player2.Id && c.TurnId == null);
+
+            var remainingDeckCount = await _db.Cards
+                .CountAsync(c => c.PlayerInGameId == null);
+
+            // **Определение победителя только если колода полностью пуста**
+            if (remainingDeckCount == 0)
+            {
+                if (player1Cards == 0 && player2Cards == 0)
+                {
+                    this.Invoke((MethodInvoker)delegate
+                    {
+                        MessageBox.Show("Ничья! Оба игрока не имеют карт.");
+                    });
+                    _deckFinished = true;
+                    return;
+                }
+
+                if (player1Cards > player2Cards)
+                {
+                    await HandleGameEnd(player1.Id == _playerInGameId);
+                    return;
+                }
+                else if (player2Cards > player1Cards)
+                {
+                    await HandleGameEnd(player2.Id == _playerInGameId);
+                    return;
+                }
+            }
+        }
+
+
+
+
+
+        private async Task HandleGameEnd(bool isWinner)
+        {
+            string message = isWinner ? "🎉 Ура! Вы выиграли!" : "😭 К сожалению, вы проиграли.";
+
+            await UpdatePlayerStatistics(isWinner);
+
+            this.Invoke((MethodInvoker)delegate
+            {
+                using (var winLoseForm = new WinningForm(message, _serviceProvider))
+                {
+                    winLoseForm.ShowDialog(this);
+                }
+            });
+
+            _deckFinished = true;
+        }
+
+        private async Task UpdatePlayerStatistics(bool isWinner)
+        {
+            var userInGame = _db.PlayerInGames.Find(_playerInGameId);
+            if (userInGame == null) return;
+
+            var user = _db.Users.Find(userInGame.UserId);
+            if (user == null) return;
+
+            var stats = await _db.PlayerStatistics
+                .FirstOrDefaultAsync(s => s.UserId == user.Id);
+
+            if (stats == null)
+            {
+                // Если статистики нет — создаём новую запись
+                stats = new PlayerStatistics
+                {
+                    Id = Guid.NewGuid(),
+                    UserId = user.Id,
+                    GamesWon = isWinner ? 1 : 0,
+                    GamesLost = isWinner ? 0 : 1,
+                    GamesDraw = 0
+                };
+                _db.PlayerStatistics.Add(stats);
+            }
+            else
+            {
+                // Или обновляем существующую
+                if (isWinner)
+                    stats.GamesWon++;
+                else
+                    stats.GamesLost++;
+                _db.PlayerStatistics.Update(stats);
+            }
+
+            await _db.SaveChangesAsync();
+        }
+
+        private async void btn_Home_Click(object sender, EventArgs e)
+        {
+            using (var notificationForm = new NotificationForm())
+            {
+                notificationForm.ShowDialog(this);
+
+                if (notificationForm.ConfirmExit)
+                {
+                    // Игрок выбрал "Выйти"
+                    await HandleGameEnd(false); // Игрок проигрывает автоматически
+                    this.Close(); // Закрываем форму игры
+                }
+            }
         }
     }
 }

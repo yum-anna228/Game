@@ -1,6 +1,6 @@
 ﻿namespace Game
 {
-    partial class Notification
+    partial class NotificationForm
     {
         /// <summary>
         /// Required designer variable.
@@ -84,6 +84,7 @@
             btnExit.TabIndex = 3;
             btnExit.Text = "Выйти";
             btnExit.UseVisualStyleBackColor = false;
+            btnExit.Click += btnExit_Click;
             // 
             // btn_Stay
             // 
@@ -98,6 +99,7 @@
             btn_Stay.TabIndex = 4;
             btn_Stay.Text = "Остаться";
             btn_Stay.UseVisualStyleBackColor = false;
+            btn_Stay.Click += btn_Stay_Click;
             // 
             // Notification
             // 

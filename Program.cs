@@ -47,8 +47,9 @@ namespace Game
                 {
                     try
                     {
-                        var dbContext = serviceProvider.GetRequiredService<GameDbContext>();
-                        var gameTableForm = new GameTableFormFor2Players(sessionId, playerInGameId, dbContext);
+                        // Получаем форму через DI — так она получит все зависимости, включая IServiceProvider
+                        var gameTableForm = serviceProvider.GetRequiredService<GameTableFormFor2Players>();
+                        gameTableForm.SetPlayerInGame(sessionId, playerInGameId); // метод SetPlayerInGame должен быть реализован
                         Application.Run(gameTableForm);
                         return;
                     }

@@ -1,10 +1,48 @@
-﻿namespace Game
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace Game
 {
     public partial class StatisticsForm : Form
     {
-        public StatisticsForm()
+        private readonly GameDbContext _db;
+        private readonly IServiceProvider _serviceProvider;
+        public StatisticsForm(GameDbContext db, IServiceProvider serviceProvider)
         {
             InitializeComponent();
+
+            _db = db;
+            _serviceProvider = serviceProvider;
+
+            Load += StatisticsForm_Load; // Вызываем загрузку при открытии формы
+        }
+
+        private async void StatisticsForm_Load(object sender, EventArgs e)
+        {
+            await LoadStatistics();
+        }
+
+        private async Task LoadStatistics()
+        {
+            // Загружаем статистику с пользователями
+            var statsList = await _db.PlayerStatistics
+                .Include(s => s.User) // если не подключено, добавь using Microsoft.EntityFrameworkCore;
+                .ToListAsync();
+
+            flowLayoutPanelStats.Controls.Clear();
+
+            foreach (var stat in statsList)
+            {
+                var label = new Label
+                {
+                    Text = $"Игрок: {stat.User.Username} | Побед: {stat.GamesWon} | Поражений: {stat.GamesLost} | Ничьих: {stat.GamesDraw}",
+                    Width = 400,
+                    Height = 30,
+                    Font = new Font("Arial", 10),
+                    TextAlign = ContentAlignment.MiddleLeft
+                };
+
+                flowLayoutPanelStats.Controls.Add(label);
+            }
         }
     }
 }

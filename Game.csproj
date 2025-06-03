@@ -75,33 +75,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\BackOfCard.png" />
-    <Resource Include="Resources\Clubs_Ace.png" />
-    <Resource Include="Resources\Clubs_Eight.png" />
-    <Resource Include="Resources\Clubs_Jack.png" />
-    <Resource Include="Resources\Clubs_King.png" />
-    <Resource Include="Resources\Clubs_Nine.png" />
-    <Resource Include="Resources\Clubs_Queen.png" />
-    <Resource Include="Resources\Clubs_Seven.png" />
-    <Resource Include="Resources\Clubs_Six.png" />
-    <Resource Include="Resources\Clubs_Ten.png" />
-    <Resource Include="Resources\Diamonds_Ace.png" />
-    <Resource Include="Resources\Diamonds_Eight.png" />
-    <Resource Include="Resources\Diamonds_Jack.png" />
-    <Resource Include="Resources\Diamonds_King.png" />
-    <Resource Include="Resources\Diamonds_Nine.png" />
-    <Resource Include="Resources\Diamonds_Queen.png" />
-    <Resource Include="Resources\Diamonds_Seven.png" />
-    <Resource Include="Resources\Diamonds_Six.png" />
-    <Resource Include="Resources\Diamonds_Ten.png" />
-    <Resource Include="Resources\Hearts_Ace.png" />
-    <Resource Include="Resources\Hearts_Eight.png" />
-    <Resource Include="Resources\Hearts_Jack.png" />
-    <Resource Include="Resources\Hearts_King.png" />
-    <Resource Include="Resources\Hearts_Nine.png" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

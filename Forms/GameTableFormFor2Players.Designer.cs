@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            button1 = new Button();
+            btn_Home = new Button();
             flowLayoutPanelOpponentCards = new FlowLayoutPanel();
             flowLayoutPanelYourCards = new FlowLayoutPanel();
             flowLayoutPanelTable = new FlowLayoutPanel();
@@ -37,24 +37,26 @@
             btnTake = new Button();
             btnNextTurn = new Button();
             lblStatus = new Label();
+            btn_ruls = new Button();
             SuspendLayout();
             // 
-            // button1
+            // btn_Home
             // 
-            button1.BackColor = Color.Transparent;
-            button1.FlatAppearance.BorderSize = 0;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.ForeColor = Color.White;
-            button1.Location = new Point(23, 12);
-            button1.Name = "button1";
-            button1.Size = new Size(41, 39);
-            button1.TabIndex = 0;
-            button1.UseVisualStyleBackColor = false;
+            btn_Home.BackColor = Color.Transparent;
+            btn_Home.FlatAppearance.BorderSize = 0;
+            btn_Home.FlatStyle = FlatStyle.Flat;
+            btn_Home.ForeColor = Color.White;
+            btn_Home.Location = new Point(28, 24);
+            btn_Home.Name = "btn_Home";
+            btn_Home.Size = new Size(41, 39);
+            btn_Home.TabIndex = 0;
+            btn_Home.UseVisualStyleBackColor = false;
+            btn_Home.Click += btn_Home_Click;
             // 
             // flowLayoutPanelOpponentCards
             // 
             flowLayoutPanelOpponentCards.BackColor = Color.Transparent;
-            flowLayoutPanelOpponentCards.Location = new Point(288, 24);
+            flowLayoutPanelOpponentCards.Location = new Point(301, 24);
             flowLayoutPanelOpponentCards.Name = "flowLayoutPanelOpponentCards";
             flowLayoutPanelOpponentCards.Size = new Size(303, 111);
             flowLayoutPanelOpponentCards.TabIndex = 1;
@@ -62,17 +64,17 @@
             // flowLayoutPanelYourCards
             // 
             flowLayoutPanelYourCards.BackColor = Color.Transparent;
-            flowLayoutPanelYourCards.Location = new Point(183, 356);
+            flowLayoutPanelYourCards.Location = new Point(133, 388);
             flowLayoutPanelYourCards.Name = "flowLayoutPanelYourCards";
-            flowLayoutPanelYourCards.Size = new Size(480, 150);
+            flowLayoutPanelYourCards.Size = new Size(623, 150);
             flowLayoutPanelYourCards.TabIndex = 2;
             // 
             // flowLayoutPanelTable
             // 
             flowLayoutPanelTable.BackColor = Color.Transparent;
-            flowLayoutPanelTable.Location = new Point(200, 141);
+            flowLayoutPanelTable.Location = new Point(215, 141);
             flowLayoutPanelTable.Name = "flowLayoutPanelTable";
-            flowLayoutPanelTable.Size = new Size(463, 209);
+            flowLayoutPanelTable.Size = new Size(505, 241);
             flowLayoutPanelTable.TabIndex = 3;
             // 
             // lblTrumpSuit
@@ -93,7 +95,7 @@
             btnBit.FlatStyle = FlatStyle.Flat;
             btnBit.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold, GraphicsUnit.Point, 204);
             btnBit.ForeColor = Color.White;
-            btnBit.Location = new Point(702, 356);
+            btnBit.Location = new Point(782, 384);
             btnBit.Name = "btnBit";
             btnBit.Size = new Size(121, 53);
             btnBit.TabIndex = 5;
@@ -108,7 +110,7 @@
             btnTake.FlatStyle = FlatStyle.Flat;
             btnTake.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold, GraphicsUnit.Point, 204);
             btnTake.ForeColor = Color.White;
-            btnTake.Location = new Point(716, 399);
+            btnTake.Location = new Point(782, 431);
             btnTake.Name = "btnTake";
             btnTake.Size = new Size(107, 47);
             btnTake.TabIndex = 6;
@@ -123,7 +125,7 @@
             btnNextTurn.FlatStyle = FlatStyle.Flat;
             btnNextTurn.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold, GraphicsUnit.Point, 204);
             btnNextTurn.ForeColor = Color.White;
-            btnNextTurn.Location = new Point(695, 441);
+            btnNextTurn.Location = new Point(762, 484);
             btnNextTurn.Name = "btnNextTurn";
             btnNextTurn.Size = new Size(152, 50);
             btnNextTurn.TabIndex = 7;
@@ -142,13 +144,25 @@
             lblStatus.Size = new Size(0, 41);
             lblStatus.TabIndex = 8;
             // 
+            // btn_ruls
+            // 
+            btn_ruls.BackColor = Color.Transparent;
+            btn_ruls.FlatAppearance.BorderSize = 0;
+            btn_ruls.FlatStyle = FlatStyle.Flat;
+            btn_ruls.Location = new Point(69, 23);
+            btn_ruls.Name = "btn_ruls";
+            btn_ruls.Size = new Size(42, 40);
+            btn_ruls.TabIndex = 9;
+            btn_ruls.UseVisualStyleBackColor = false;
+            // 
             // GameTableFormFor2Players
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = Properties.Resources.игровой_стол;
             BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(880, 518);
+            ClientSize = new Size(961, 560);
+            Controls.Add(btn_ruls);
             Controls.Add(lblStatus);
             Controls.Add(btnNextTurn);
             Controls.Add(btnTake);
@@ -157,7 +171,7 @@
             Controls.Add(flowLayoutPanelTable);
             Controls.Add(flowLayoutPanelYourCards);
             Controls.Add(flowLayoutPanelOpponentCards);
-            Controls.Add(button1);
+            Controls.Add(btn_Home);
             DoubleBuffered = true;
             Name = "GameTableFormFor2Players";
             Text = "GameTableFormFor2Players";
@@ -167,7 +181,7 @@
 
         #endregion
 
-        private Button button1;
+        private Button btn_Home;
         private FlowLayoutPanel flowLayoutPanelOpponentCards;
         private FlowLayoutPanel flowLayoutPanelYourCards;
         private FlowLayoutPanel flowLayoutPanelTable;
@@ -176,5 +190,6 @@
         private Button btnTake;
         private Button btnNextTurn;
         private Label lblStatus;
+        private Button btn_ruls;
     }
 }

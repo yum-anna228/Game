@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System.Diagnostics;
 
 namespace Game
 {
@@ -41,7 +42,7 @@ namespace Game
 
         private void btn_viewStatistics_Click(object sender, EventArgs e)
         {
-            var statsForm = new StatisticsForm(); // ваша форма статистики
+            var statsForm = _serviceProvider.GetRequiredService<StatisticsForm>();
             statsForm.Show();
             this.Hide();
         }

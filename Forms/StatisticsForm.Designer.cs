@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StatisticsForm));
             label1 = new Label();
+            flowLayoutPanelStats = new FlowLayoutPanel();
             SuspendLayout();
             // 
             // label1
@@ -44,6 +45,16 @@
             label1.TabIndex = 0;
             label1.Text = "Статистика";
             // 
+            // flowLayoutPanelStats
+            // 
+            flowLayoutPanelStats.BackColor = Color.Transparent;
+            flowLayoutPanelStats.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            flowLayoutPanelStats.ForeColor = Color.White;
+            flowLayoutPanelStats.Location = new Point(54, 74);
+            flowLayoutPanelStats.Name = "flowLayoutPanelStats";
+            flowLayoutPanelStats.Size = new Size(701, 340);
+            flowLayoutPanelStats.TabIndex = 1;
+            // 
             // StatisticsForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -51,6 +62,7 @@
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(800, 450);
+            Controls.Add(flowLayoutPanelStats);
             Controls.Add(label1);
             DoubleBuffered = true;
             Name = "StatisticsForm";
@@ -62,5 +74,6 @@
         #endregion
 
         private Label label1;
+        private FlowLayoutPanel flowLayoutPanelStats;
     }
 }

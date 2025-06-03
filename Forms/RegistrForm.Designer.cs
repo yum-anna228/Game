@@ -77,6 +77,7 @@ namespace Game
             txtPassword.ForeColor = SystemColors.Window;
             txtPassword.Location = new Point(60, 213);
             txtPassword.Name = "txtPassword";
+            txtPassword.PasswordChar = '*';
             txtPassword.Size = new Size(676, 66);
             txtPassword.TabIndex = 3;
             // 
@@ -87,6 +88,7 @@ namespace Game
             txtConfirmPassword.ForeColor = SystemColors.Window;
             txtConfirmPassword.Location = new Point(60, 307);
             txtConfirmPassword.Name = "txtConfirmPassword";
+            txtConfirmPassword.PasswordChar = '*';
             txtConfirmPassword.Size = new Size(676, 66);
             txtConfirmPassword.TabIndex = 4;
             // 
