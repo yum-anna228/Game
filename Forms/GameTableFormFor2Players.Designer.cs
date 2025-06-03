@@ -154,6 +154,7 @@
             btn_ruls.Size = new Size(42, 40);
             btn_ruls.TabIndex = 9;
             btn_ruls.UseVisualStyleBackColor = false;
+            btn_ruls.Click += btn_ruls_Click;
             // 
             // GameTableFormFor2Players
             // 

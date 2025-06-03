@@ -117,11 +117,27 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="label1.Text" xml:space="preserve">
+    <value>1. Игра ведётся колодой из 36 карт.
+2. Козырная масть определяется последней картой в колоде.
+3. Игроки по очереди атакуют и защищаются.
+4. Атакующий кладёт карту на стол.
+5. Защищающийся должен отбить её старшей картой той же масти или козырём.
+6. Если защита не удалась — игрок забирает карту.
+7. После окончания хода карты можно бито, если все отбиты.
+8. Побеждает тот, кто первым избавится от всех своих карт.
+9. При пустой колоде победитель определяется по количеству карт на руке.
+
+Карты:
+- Старшинство: 6 &lt; 7 &lt; 8 &lt; 9 &lt; 10 &lt; Валет &lt; Дама &lt; Король &lt; Туз
+
+Козырные карты старше обычных.</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAABBUAAAJsCAYAAACifJs0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wQAADsEBuJFr7QAA/7JJREFUeF5s3WmbJ0WVhnG/gKOz78wMguIuiiyNDbIJiMgm0KCz7/uu6Mx3r7l+
+        wAAADsABataJCQAA/7JJREFUeF5s3WmbJ0WVhnG/gKOz78wMguIuiiyNDbIJiMgm0KCz7/uu6Mx3r7l+
         WXN3Pf/sehFXZkac/TznRGRWVfenHnrooavGW089dvXnL3zl6q9e/vox/vKlr139xYtfvfqz73756k+e
         ++LVnz7/pWP9r1/5xjHv+Y/vPnbcm/ub7z1+XPG1ZuAxyEGb/GQn8x/fePLqn37w1HH9h+9/+7j/+9ef
         uPrbV795yDbwraxkW/u71751X3fz3cfHDwM/2vwyfvKdLxzP5Bo/fvbzVx88+UfHeP/bf3j10TOPHHRo

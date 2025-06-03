@@ -402,5 +402,11 @@ namespace Game
                 }
             }
         }
+
+        private void btn_ruls_Click(object sender, EventArgs e)
+        {
+            var rulesForm = new RuleForm();
+            rulesForm.ShowDialog(this); // Чтобы блокировать игру до закрытия
+        }
     }
 }

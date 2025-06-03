@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RuleForm));
             lbl_rule = new Label();
+            label1 = new Label();
             SuspendLayout();
             // 
             // lbl_rule
@@ -38,21 +39,34 @@
             lbl_rule.BackColor = Color.Transparent;
             lbl_rule.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 204);
             lbl_rule.ForeColor = Color.White;
-            lbl_rule.Location = new Point(52, 37);
+            lbl_rule.Location = new Point(58, 43);
             lbl_rule.Name = "lbl_rule";
             lbl_rule.Size = new Size(127, 38);
             lbl_rule.TabIndex = 0;
             lbl_rule.Text = "Правила";
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.BackColor = Color.Transparent;
+            label1.ForeColor = Color.White;
+            label1.Location = new Point(72, 98);
+            label1.Name = "label1";
+            label1.Size = new Size(657, 322);
+            label1.TabIndex = 1;
+            label1.Text = resources.GetString("label1.Text");
+            // 
             // RuleForm
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(9F, 23F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(900, 518);
+            Controls.Add(label1);
             Controls.Add(lbl_rule);
             DoubleBuffered = true;
+            Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 204);
             Name = "RuleForm";
             Text = "RuleForm";
             ResumeLayout(false);
@@ -62,5 +76,6 @@
         #endregion
 
         private Label lbl_rule;
+        private Label label1;
     }
 }
