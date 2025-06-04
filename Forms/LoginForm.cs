@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using System;
+using NLog;
 
 namespace Game
 {
@@ -8,6 +8,8 @@ namespace Game
     /// </summary>
     public partial class LoginForm : Form
     {
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+
         private readonly IAuthService _authService;
         private readonly GameDbContext _db;
         private readonly IServiceProvider _serviceProvider;
@@ -30,21 +32,25 @@ namespace Game
 
         private async void btn_Login_Click(object sender, EventArgs e)
         {
+            logger.Trace("Нажата кнопка 'Войти'");
             string username = txtLogin.Text;
             string password = txtPassword.Text;
 
             if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
             {
                 MessageBox.Show("Введите логин и пароль.");
+                logger.Warn("Логин или пароль не введены");
                 return;
             }
 
             var user = await _authService.LoginAsync(username, password);
             if (user == null)
             {
+                logger.Warn($"Неудачная попытка входа для пользователя '{username}'");
                 MessageBox.Show("Неверный логин или пароль");
                 return;
             }
+            logger.Info($"Пользователь '{username}' успешно вошёл");
 
             if (_gameSessionId.HasValue)
             {
@@ -63,7 +69,6 @@ namespace Game
                 _db.PlayerInGames.Add(playerInGame);
                 await _db.SaveChangesAsync();
 
-                // Получаем форму через DI — так как GameDbContext внедрён через DI
                 var scope = _serviceProvider.CreateScope();
                 var scopedProvider = scope.ServiceProvider;
 
@@ -74,6 +79,7 @@ namespace Game
             }
             else
             {
+                logger.Info("Переход к выбору режима игры");
                 var selectModeForm = _serviceProvider.GetRequiredService<SelectModeForm>();
                 selectModeForm.SetCurrentUser(user);
                 selectModeForm.Show();
@@ -83,6 +89,7 @@ namespace Game
 
         private void btn_Registr_Click(object sender, EventArgs e)
         {
+            logger.Info("Кнопка 'Зарегистрироваться' нажата");
             var registForm = _serviceProvider.GetRequiredService<RegistrForm>();
             registForm.Show();
             this.Hide();

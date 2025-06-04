@@ -1,6 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using System;
+﻿using Microsoft.Extensions.DependencyInjection;
+using NLog;
 
 namespace Game
 {
@@ -10,6 +9,8 @@ namespace Game
     /// </summary>
     public partial class RegistrForm : Form
     {
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+
         private readonly IAuthService _authService;
         private readonly GameDbContext _db;
         private readonly IServiceProvider _serviceProvider;
@@ -20,6 +21,7 @@ namespace Game
             _db = db;
             _serviceProvider = serviceProvider;
             InitializeComponent();
+            logger.Info("Форма регистрации загружена");
         }
 
         private async void btn_Registr1_Click(object sender, EventArgs e)
@@ -28,12 +30,15 @@ namespace Game
             string password = txtPassword.Text;
             string confirmPassword = txtConfirmPassword.Text;
 
+            logger.Debug($"Попытка регистрации пользователя: {username}");
+
             // Проверка на пустые поля
             if (string.IsNullOrWhiteSpace(username) ||
                 string.IsNullOrWhiteSpace(password) ||
                 string.IsNullOrWhiteSpace(confirmPassword))
             {
                 MessageBox.Show("Все поля должны быть заполнены.");
+                logger.Warn("Не все поля заполнены при регистрации");
                 return;
             }
 
@@ -41,6 +46,7 @@ namespace Game
             if (password != confirmPassword)
             {
                 MessageBox.Show("Пароли не совпадают.");
+                logger.Warn("Пароли не совпадают");
                 return;
             }
 
@@ -48,6 +54,7 @@ namespace Game
             bool success = await _authService.RegisterAsync(username, password);
             if (success)
             {
+                logger.Info($"Пользователь '{username}' успешно зарегистрирован");
                 MessageBox.Show("Регистрация успешна!");
                 var loginForm = _serviceProvider.GetRequiredService<LoginForm>();
                 loginForm.Show();
@@ -55,12 +62,14 @@ namespace Game
             }
             else
             {
+                logger.Error($"Ошибка регистрации для пользователя '{username}' — возможно, пользователь уже существует");
                 MessageBox.Show("Ошибка регистрации. Возможно, пользователь с таким именем уже существует.");
             }
         }
 
         private void btn_Enter1_Click(object sender, EventArgs e)
         {
+            logger.Debug("Кнопка 'Войти' нажата — переход на форму входа");
             var loginForm = _serviceProvider.GetRequiredService<LoginForm>();
             loginForm.Show();
             this.Hide();

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using NLog;
 using System.Diagnostics;
 
 namespace Game
@@ -8,6 +9,7 @@ namespace Game
     /// </summary>
     public partial class SelectModeForm : Form
     {
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
         private readonly GameDbContext _db;
         private  User _currentUser;
         private readonly IServiceProvider _serviceProvider;
@@ -17,6 +19,7 @@ namespace Game
             InitializeComponent();
             _db = db;
             _serviceProvider = serviceProvider;
+            logger.Info("Форма выбора режима загружена");
         }
 
         public void SetCurrentUser(User user)
@@ -27,6 +30,7 @@ namespace Game
 
         private void btn_2players_Click(object sender, EventArgs e)
         {
+            logger.Debug("Выбран режим на 2 игрока");
             StartGame(2);
         }
 
@@ -37,11 +41,12 @@ namespace Game
 
         private void SelectModeForm_Load(object sender, EventArgs e)
         {
-
+            logger.Trace("Форма SelectModeForm загружена");
         }
 
         private void btn_viewStatistics_Click(object sender, EventArgs e)
         {
+            logger.Info("Переход к статистике");
             var statsForm = _serviceProvider.GetRequiredService<StatisticsForm>();
             statsForm.Show();
             this.Hide();
@@ -53,10 +58,12 @@ namespace Game
         /// </summary>
         private void StartGame(int playerCount)
         {
+            logger.Info($"Начало игры с {playerCount} игроками");
             MessageBox.Show("StartGame начат");
 
             if (_currentUser == null)
             {
+                logger.Warn("Ошибка: пользователь не установлен");
                 MessageBox.Show("Ошибка: пользователь не установлен.");
                 return;
             }
@@ -98,6 +105,7 @@ namespace Game
             }
             catch (Exception ex)
             {
+                logger.Error(ex, "Ошибка при сохранении данных в БД");
                 MessageBox.Show($"Ошибка при сохранении в БД: {ex.Message}");
                 return;
             }
@@ -111,6 +119,7 @@ namespace Game
             }
             catch (Exception ex)
             {
+                logger.Fatal(ex, "Ошибка при запуске клиентских процессов");
                 MessageBox.Show($"Ошибка при запуске клиента: {ex.Message}");
             }
 
@@ -123,9 +132,11 @@ namespace Game
         /// </summary>
         private Guid GetSecondUserId(Guid currentUserId)
         {
+            logger.Trace("Поиск второго пользователя");
             var user = _db.Users.FirstOrDefault(u => u.Id != currentUserId);
             if (user == null)
             {
+                logger.Warn("Второй пользователь не найден — создаём бота");
                 user = new User
                 {
                     Id = Guid.NewGuid(),
@@ -135,6 +146,7 @@ namespace Game
                 _db.Users.Add(user);
                 _db.SaveChanges();
             }
+            logger.Debug($"ID второго игрока: {user.Id}");
             return user.Id;
         }
 

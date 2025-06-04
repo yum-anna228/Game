@@ -1,9 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using NLog;
 
 namespace Game
 {
     public partial class StatisticsForm : Form
     {
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+
         private readonly GameDbContext _db;
         private readonly IServiceProvider _serviceProvider;
         public StatisticsForm(GameDbContext db, IServiceProvider serviceProvider)
@@ -13,21 +16,22 @@ namespace Game
             _db = db;
             _serviceProvider = serviceProvider;
 
-            Load += StatisticsForm_Load; // Вызываем загрузку при открытии формы
+            Load += StatisticsForm_Load; 
         }
 
         private async void StatisticsForm_Load(object sender, EventArgs e)
         {
+            logger.Debug("Загрузка формы статистики");
             await LoadStatistics();
         }
 
         private async Task LoadStatistics()
         {
-            // Загружаем статистику с пользователями
             var statsList = await _db.PlayerStatistics
-                .Include(s => s.User) // если не подключено, добавь using Microsoft.EntityFrameworkCore;
+                .Include(s => s.User) 
                 .ToListAsync();
 
+            logger.Info($"Загружено {statsList.Count} записей статистики");
             flowLayoutPanelStats.Controls.Clear();
 
             foreach (var stat in statsList)
@@ -42,6 +46,7 @@ namespace Game
                 };
 
                 flowLayoutPanelStats.Controls.Add(label);
+                logger.Trace($"Добавлена статистика для пользователя: {stat.User.Username}");
             }
         }
     }

@@ -1,15 +1,37 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NLog.Config;
+using NLog.Targets;
+using NLog;
+//using Microsoft.Extensions.Logging;
 
 namespace Game
 {
     internal static class Program
     {
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
         [STAThread]
         static void Main(string[] args)
         {
             ApplicationConfiguration.Initialize();
+
+            // Теперь настраиваем NLog
+            var config = new LoggingConfiguration();
+
+            var fileTarget = new FileTarget("logfile")
+            {
+                FileName = "log.txt",
+                Layout = "${longdate} | ${level:uppercase=true} | ${logger} | ${message}"
+            };
+
+            config.AddTarget(fileTarget);
+            config.AddRule(LogLevel.Trace, LogLevel.Fatal, fileTarget);
+            LogManager.Configuration = config;
+
+            logger.Info("Игра запущена");
+            
+
 
             var services = new ServiceCollection();
 

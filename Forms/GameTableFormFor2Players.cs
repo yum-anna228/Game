@@ -1,10 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using NLog;
 using System.Data;
 
 namespace Game
 {
     public partial class GameTableFormFor2Players : Form
     {
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+
         private System.Windows.Forms.Timer _uiUpdateTimer;
         private readonly GameDbContext _db;
         private Guid _gameSessionId;
@@ -54,11 +57,10 @@ namespace Game
 
         private void StartUIUpdateTimer()
         {
-            _uiUpdateTimer = new System.Windows.Forms.Timer(); // Это System.Windows.Forms.Timer
-            _uiUpdateTimer.Interval = 1000; // Интервал обновления UI в мс
+            _uiUpdateTimer = new System.Windows.Forms.Timer(); 
+            _uiUpdateTimer.Interval = 1000; 
             _uiUpdateTimer.Tick += (s, e) =>
             {
-                // Вызываем UI-обновление в потоке интерфейса
                 this.Invoke((System.Windows.Forms.MethodInvoker)delegate
                 {
                     LoadPlayerCards();
@@ -101,7 +103,10 @@ namespace Game
             var btn = sender as Button;
             var card = btn?.Tag as Card;
 
-            if (card == null) return;
+            if (card == null)
+            {
+                logger.Warn("Кнопка нажата, но карта не найдена");
+            }
 
             var player = _db.PlayerInGames.Find(_playerInGameId);
             if (player == null) return;
@@ -119,7 +124,7 @@ namespace Game
                 }
             }
 
-            await _db.SaveChangesAsync(); // Сохраняем все изменения в БД
+            await _db.SaveChangesAsync();
             LoadPlayerCards();
             UpdateTable();
             UpdateStatus();
@@ -179,16 +184,13 @@ namespace Game
 
             foreach (var card in playedCards)
             {
-                // Убираем TurnId, чтобы показать, что карта больше не на столе
                 card.TurnId = null;
-
-                // Не делаем PlayerInGameId = null — это нарушает внешний ключ
             }
 
             _db.Cards.UpdateRange(playedCards);
             await _db.SaveChangesAsync();
 
-            await SwitchTurnAsync(); // Смена хода после бита
+            await SwitchTurnAsync();
             //await CheckWinCondition();
         }
 
@@ -231,8 +233,6 @@ namespace Game
                 MessageBox.Show("Не определены роли игроков");
                 return;
             }
-
-            // Меняем роли местами
             attacker.IsAttacker = false;
             defender.IsAttacker = true;
 
@@ -304,7 +304,6 @@ namespace Game
             var remainingDeckCount = await _db.Cards
                 .CountAsync(c => c.PlayerInGameId == null);
 
-            // **Определение победителя только если колода полностью пуста**
             if (remainingDeckCount == 0)
             {
                 if (player1Cards == 0 && player2Cards == 0)
@@ -337,7 +336,7 @@ namespace Game
         private async Task HandleGameEnd(bool isWinner)
         {
             string message = isWinner ? "🎉 Ура! Вы выиграли!" : "😭 К сожалению, вы проиграли.";
-
+            logger.Info($"Игрок {_playerInGameId} {(isWinner ? "выиграл" : "проиграл")}");
             await UpdatePlayerStatistics(isWinner);
 
             this.Invoke((MethodInvoker)delegate
@@ -354,17 +353,24 @@ namespace Game
         private async Task UpdatePlayerStatistics(bool isWinner)
         {
             var userInGame = _db.PlayerInGames.Find(_playerInGameId);
-            if (userInGame == null) return;
+            if (userInGame == null)
+            {
+                logger.Warn("Не найден PlayerInGame");
+                return;
+            }
 
             var user = _db.Users.Find(userInGame.UserId);
-            if (user == null) return;
+            if (user == null)
+            {
+                logger.Warn("Пользователь не найден");
+                return;
+            }
 
             var stats = await _db.PlayerStatistics
                 .FirstOrDefaultAsync(s => s.UserId == user.Id);
 
             if (stats == null)
             {
-                // Если статистики нет — создаём новую запись
                 stats = new PlayerStatistics
                 {
                     Id = Guid.NewGuid(),
@@ -374,14 +380,21 @@ namespace Game
                     GamesDraw = 0
                 };
                 _db.PlayerStatistics.Add(stats);
+                logger.Info($"Создана новая статистика для пользователя {user.Id}");
             }
             else
             {
-                // Или обновляем существующую
                 if (isWinner)
+                {
                     stats.GamesWon++;
+                    logger.Info($"Победа игрока {user.Id}, всего побед: {stats.GamesWon}");
+                }
                 else
+                {
                     stats.GamesLost++;
+                    logger.Info($"Поражение игрока {user.Id}, всего поражений: {stats.GamesLost}");
+                }
+
                 _db.PlayerStatistics.Update(stats);
             }
 
@@ -396,17 +409,18 @@ namespace Game
 
                 if (notificationForm.ConfirmExit)
                 {
-                    // Игрок выбрал "Выйти"
-                    await HandleGameEnd(false); // Игрок проигрывает автоматически
-                    this.Close(); // Закрываем форму игры
+                    logger.Warn("Игрок нажал 'Выход' — игра завершается как поражение");
+                    await HandleGameEnd(false); 
+                    this.Close(); 
                 }
             }
         }
 
         private void btn_ruls_Click(object sender, EventArgs e)
         {
+            logger.Debug("Игрок открыл правила игры");
             var rulesForm = new RuleForm();
-            rulesForm.ShowDialog(this); // Чтобы блокировать игру до закрытия
+            rulesForm.ShowDialog(this); 
         }
     }
 }

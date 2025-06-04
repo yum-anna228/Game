@@ -1,9 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using NLog;
 
 namespace Game
 {
     public class DurakGameLogic
     {
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
         private readonly GameDbContext _db;
         private readonly Guid _gameSessionId;
         private List<Card> _deck = new();
@@ -39,6 +41,7 @@ namespace Game
 
         private void InitializeDeck()
         {
+            logger.Trace("Инициализация новой колоды");
             var suits = new[] { "♠", "♥", "♦", "♣" };
             var ranks = new[] { "6", "7", "8", "9", "T", "J", "Q", "K", "A" };
 
@@ -57,6 +60,8 @@ namespace Game
                     });
                 }
             }
+
+            logger.Debug($"Создана колода из {_deck.Count} карт");
         }
 
         /// <summary>
@@ -64,8 +69,11 @@ namespace Game
         /// </summary>
         private void ShuffleDeck()
         {
+            logger.Debug("Перемешивание колоды...");
             var random = new Random();
             _deck = _deck.OrderBy(c => random.Next()).ToList();
+
+            logger.Info("Колода успешно перемешана");
         }
 
         /// <summary>
@@ -73,6 +81,7 @@ namespace Game
         /// </summary>
         public void DealCards()
         {
+            logger.Debug("Раздача карт игрокам...");
             var players = _db.PlayerInGames
         .Where(p => p.GameSessionId == _gameSessionId)
         .ToList();
@@ -98,6 +107,7 @@ namespace Game
             }
 
             _db.SaveChanges();
+            logger.Info($"Карты успешно разданы для {players.Count} игроков");
         }
 
         /// <summary>
@@ -105,6 +115,7 @@ namespace Game
         /// </summary>
         public async Task MakeAttackAsync(Guid playerInGameId, Card card)
         {
+            logger.Debug($"Игрок {playerInGameId} делает атаку картой {card.Suit}{card.Rank}");
             var turn = new Turn
             {
                 Id = Guid.NewGuid(),
@@ -120,6 +131,7 @@ namespace Game
             await _db.Turns.AddAsync(turn);
             _db.Cards.Update(card);
             await _db.SaveChangesAsync();
+            logger.Info($"Атака создана: {card.Suit}{card.Rank}, ход ID: {turn.Id}");
         }
 
         /// <summary>
@@ -129,6 +141,7 @@ namespace Game
         {
             if (!CanBeat(attackCard, defendCard))
             {
+                logger.Warn("Карта не может отбить атаку");
                 MessageBox.Show("Этой картой отбить нельзя");
                 return;
             }
@@ -140,27 +153,59 @@ namespace Game
             await _db.SaveChangesAsync();
         }
 
+        private string GetTrumpSuit()
+        {
+            var session = _db.GameSessions.Find(_gameSessionId);
+            return session?.TrumpSuit;
+        }
+
         /// <summary>
         /// Проверяет, может ли одна карта побить другую согласно правилам игры "Дурак"
         /// </summary>
         public bool CanBeat(Card attackCard, Card defendCard)
         {
-            // Если масти одинаковые — сравниваем по значению
-            if (defendCard.Suit == attackCard.Suit && GetRankValue(defendCard.Rank) > GetRankValue(attackCard.Rank))
-                return true;
+            if (defendCard == null || attackCard == null)
+                return false;
 
-            // Если карта отбивающего — козырная, а атакующая — нет
-            if (defendCard.Suit == _trumpSuit && attackCard.Suit != _trumpSuit)
-                return true;
+            string trumpSuit = GetTrumpSuit();
+            if (string.IsNullOrEmpty(trumpSuit))
+            {
+                logger.Error("Козырь не определён");
+                MessageBox.Show("Ошибка: Козырь не определён");
+                return false;
+            }
 
+            // Если масти совпадают — проверяем старшинство
+            if (defendCard.Suit == attackCard.Suit &&
+                GetRankValue(defendCard.Rank) > GetRankValue(attackCard.Rank))
+            {
+                logger.Trace("Масть совпадает, карта бьёт");
+                return true;
+            }
+
+            // Если атакующая карта НЕ козырная, а защищающаяся — козырная, то можно отбить
+            if (defendCard.Suit == trumpSuit && attackCard.Suit != trumpSuit)
+            {
+                logger.Trace("Козырь бьёт обычную карту");
+                return true;
+            }
+
+            // Если обе карты козырные — тогда смотрим на старшинство
+            if (attackCard.Suit == trumpSuit && defendCard.Suit == trumpSuit)
+            {
+                logger.Trace("Обе карты козырные — проверяем старшинство");
+                return GetRankValue(defendCard.Rank) > GetRankValue(attackCard.Rank);
+            }
+            logger.Warn("Карта не может отбить ход");
             return false;
         }
 
-        /// <summary>
-        /// Возвращает числовое значение ранга карты для сравнения
-        /// </summary>
+            /// <summary>
+            /// Возвращает числовое значение ранга карты для сравнения
+            /// </summary>
         private int GetRankValue(string rank)
         {
+            logger.Trace($"Получено значение ранга для '{rank}'");
             return RankValues.TryGetValue(rank, out var value) ? value : 0;
         }
 
@@ -194,6 +239,7 @@ namespace Game
         /// </summary>
         public async Task EndBoutAsync(Guid defenderId)
         {
+            logger.Warn("Вызван метод EndBoutAsync — все карты достаются обороняющемуся");
             var boutCards = await _db.Cards
                 .Where(c => c.TurnId != null)
                 .ToListAsync();
@@ -208,9 +254,5 @@ namespace Game
             await _db.SaveChangesAsync();
         }
 
-        public void NewRound()
-        {
-
-        }
     }
 }
