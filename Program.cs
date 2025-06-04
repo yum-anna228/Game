@@ -4,7 +4,6 @@ using Microsoft.Extensions.DependencyInjection;
 using NLog.Config;
 using NLog.Targets;
 using NLog;
-//using Microsoft.Extensions.Logging;
 
 namespace Game
 {
@@ -16,7 +15,6 @@ namespace Game
         {
             ApplicationConfiguration.Initialize();
 
-            // Теперь настраиваем NLog
             var config = new LoggingConfiguration();
 
             var fileTarget = new FileTarget("logfile")
@@ -34,8 +32,6 @@ namespace Game
 
 
             var services = new ServiceCollection();
-
-            // Убедитесь, что appsettings.json найден
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
@@ -59,6 +55,7 @@ namespace Game
             services.AddTransient<SelectModeForm>();
             services.AddTransient<GameTableFormFor2Players>();
             services.AddTransient<StatisticsForm>();
+            services.AddTransient<RuleForm>();
 
 
             var serviceProvider = services.BuildServiceProvider();
@@ -69,9 +66,8 @@ namespace Game
                 {
                     try
                     {
-                        // Получаем форму через DI — так она получит все зависимости, включая IServiceProvider
                         var gameTableForm = serviceProvider.GetRequiredService<GameTableFormFor2Players>();
-                        gameTableForm.SetPlayerInGame(sessionId, playerInGameId); // метод SetPlayerInGame должен быть реализован
+                        gameTableForm.SetPlayerInGame(sessionId, playerInGameId); 
                         Application.Run(gameTableForm);
                         return;
                     }
@@ -82,7 +78,6 @@ namespace Game
                 }
             }
 
-            // По умолчанию запускаем главное меню
             try
             {
                 var mainMenu = serviceProvider.GetRequiredService<GameForm>();
