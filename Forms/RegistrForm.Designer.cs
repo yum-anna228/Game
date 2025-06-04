@@ -42,6 +42,7 @@ namespace Game
             // 
             // btn_Registr1
             // 
+            btn_Registr1.Anchor = AnchorStyles.Bottom;
             btn_Registr1.BackColor = Color.Transparent;
             btn_Registr1.FlatAppearance.BorderSize = 0;
             btn_Registr1.FlatStyle = FlatStyle.Flat;
@@ -57,6 +58,7 @@ namespace Game
             // 
             // btn_Enter1
             // 
+            btn_Enter1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btn_Enter1.BackColor = Color.Transparent;
             btn_Enter1.FlatAppearance.BorderSize = 0;
             btn_Enter1.FlatStyle = FlatStyle.Flat;

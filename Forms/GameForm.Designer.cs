@@ -39,6 +39,7 @@ namespace Game
             // 
             // btn_Game
             // 
+            btn_Game.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             btn_Game.BackColor = Color.Transparent;
             btn_Game.FlatAppearance.BorderSize = 0;
             btn_Game.FlatStyle = FlatStyle.Flat;
@@ -54,6 +55,7 @@ namespace Game
             // 
             // btn_Rules
             // 
+            btn_Rules.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             btn_Rules.BackColor = Color.Transparent;
             btn_Rules.FlatAppearance.BorderSize = 0;
             btn_Rules.FlatStyle = FlatStyle.Flat;
@@ -68,6 +70,7 @@ namespace Game
             // 
             // btn_language
             // 
+            btn_language.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btn_language.BackColor = Color.Transparent;
             btn_language.FlatAppearance.BorderSize = 0;
             btn_language.FlatStyle = FlatStyle.Flat;
@@ -82,7 +85,7 @@ namespace Game
             // 
             // label1
             // 
-            label1.AutoSize = true;
+            label1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label1.BackColor = Color.Transparent;
             label1.Font = new Font("NSimSun", 48F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.White;
@@ -107,7 +110,6 @@ namespace Game
             Name = "GameForm";
             Text = "Game";
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion

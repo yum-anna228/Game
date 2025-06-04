@@ -73,6 +73,7 @@
             // 
             // btnExit
             // 
+            btnExit.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnExit.BackColor = Color.Transparent;
             btnExit.FlatAppearance.BorderSize = 0;
             btnExit.FlatStyle = FlatStyle.Flat;
@@ -88,6 +89,7 @@
             // 
             // btn_Stay
             // 
+            btn_Stay.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btn_Stay.BackColor = Color.Transparent;
             btn_Stay.FlatAppearance.BorderSize = 0;
             btn_Stay.FlatStyle = FlatStyle.Flat;
@@ -101,7 +103,7 @@
             btn_Stay.UseVisualStyleBackColor = false;
             btn_Stay.Click += btn_Stay_Click;
             // 
-            // Notification
+            // NotificationForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -114,7 +116,7 @@
             Controls.Add(label2);
             Controls.Add(label1);
             DoubleBuffered = true;
-            Name = "Notification";
+            Name = "NotificationForm";
             Text = "Notification";
             ResumeLayout(false);
             PerformLayout();

@@ -90,6 +90,7 @@
             // 
             // btnBit
             // 
+            btnBit.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnBit.BackColor = Color.Transparent;
             btnBit.FlatAppearance.BorderSize = 0;
             btnBit.FlatStyle = FlatStyle.Flat;
@@ -105,6 +106,7 @@
             // 
             // btnTake
             // 
+            btnTake.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnTake.BackColor = Color.Transparent;
             btnTake.FlatAppearance.BorderSize = 0;
             btnTake.FlatStyle = FlatStyle.Flat;
@@ -120,6 +122,7 @@
             // 
             // btnNextTurn
             // 
+            btnNextTurn.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnNextTurn.BackColor = Color.Transparent;
             btnNextTurn.FlatAppearance.BorderSize = 0;
             btnNextTurn.FlatStyle = FlatStyle.Flat;

@@ -58,6 +58,7 @@
             // 
             // btn_NewGame
             // 
+            btn_NewGame.Anchor = AnchorStyles.Bottom;
             btn_NewGame.BackColor = Color.Transparent;
             btn_NewGame.FlatAppearance.BorderSize = 0;
             btn_NewGame.FlatStyle = FlatStyle.Flat;
@@ -73,6 +74,7 @@
             // 
             // button1
             // 
+            button1.Anchor = AnchorStyles.Bottom;
             button1.BackColor = Color.Transparent;
             button1.FlatAppearance.BorderSize = 0;
             button1.FlatStyle = FlatStyle.Flat;

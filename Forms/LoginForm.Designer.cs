@@ -43,6 +43,7 @@
             // 
             // btn_Login
             // 
+            btn_Login.Anchor = AnchorStyles.Bottom;
             btn_Login.BackColor = Color.Transparent;
             btn_Login.FlatAppearance.BorderSize = 0;
             btn_Login.FlatStyle = FlatStyle.Flat;
@@ -58,6 +59,7 @@
             // 
             // btn_Registr
             // 
+            btn_Registr.Anchor = AnchorStyles.Right;
             btn_Registr.BackColor = Color.Transparent;
             btn_Registr.FlatAppearance.BorderSize = 0;
             btn_Registr.FlatStyle = FlatStyle.Flat;

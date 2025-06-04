@@ -35,6 +35,7 @@
             // 
             // btn_2players
             // 
+            btn_2players.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             btn_2players.BackColor = Color.Transparent;
             btn_2players.FlatAppearance.BorderSize = 0;
             btn_2players.FlatStyle = FlatStyle.Flat;
@@ -50,6 +51,7 @@
             // 
             // btn_viewStatistics
             // 
+            btn_viewStatistics.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             btn_viewStatistics.BackColor = Color.Transparent;
             btn_viewStatistics.FlatAppearance.BorderSize = 0;
             btn_viewStatistics.FlatStyle = FlatStyle.Flat;
@@ -65,6 +67,7 @@
             // 
             // btn_Exit
             // 
+            btn_Exit.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btn_Exit.BackColor = Color.Transparent;
             btn_Exit.FlatAppearance.BorderSize = 0;
             btn_Exit.FlatStyle = FlatStyle.Flat;
