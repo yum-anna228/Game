@@ -5,6 +5,7 @@ using NLog.Targets;
 using NLog;
 using Castle.Windsor;
 using Component = Castle.MicroKernel.Registration.Component;
+using System.Globalization;
 
 namespace Game
 {
@@ -101,6 +102,11 @@ namespace Game
                 MessageBox.Show($"Ошибка при запуске главного меню: {ex.Message}");
             }
 
+            // Установка культуры до запуска приложения
+            var cultureName = Properties.Settings.Default.Language ?? "ru-RU";
+            var culture = new CultureInfo(cultureName);
+            Thread.CurrentThread.CurrentCulture = culture;
+            Thread.CurrentThread.CurrentUICulture = culture;
 
         }
     }
