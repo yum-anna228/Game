@@ -178,22 +178,25 @@ namespace Game
                 return false;
             }
 
-            // 1. Если обе карты козырные → старшая побеждает
-            if (attackCard.Suit == trumpSuit && defendCard.Suit == trumpSuit)
+            // Для логирования
+            logger.Debug($"CanBeat: Атака={attackCard.Suit}{attackCard.Rank}, Защита={defendCard.Suit}{defendCard.Rank}, Козырь={trumpSuit}");
+
+            // 1. Обе карты козырные → старшая побеждает
+            if (defendCard.Suit == trumpSuit && attackCard.Suit == trumpSuit)
             {
                 bool canBeat = GetRankValue(defendCard.Rank) > GetRankValue(attackCard.Rank);
                 logger.Debug($"Сравнение козырей: {defendCard.Suit}{defendCard.Rank} против {attackCard.Suit}{attackCard.Rank} → {(canBeat ? "можно отбить" : "нельзя")}");
                 return canBeat;
             }
 
-            // 2. Защитная карта — козырь, атакующая — нет → можно отбить
+            // 2. Защитная карта — козырь, атакующая — нет
             if (defendCard.Suit == trumpSuit && attackCard.Suit != trumpSuit)
             {
                 logger.Trace("Козырная карта используется для защиты");
                 return true;
             }
 
-            // 3. Атакующая карта — козырная, защитная — нет → нельзя отбить
+            // 3. Атакующая карта — козырь, защитная — нет
             if (attackCard.Suit == trumpSuit && defendCard.Suit != trumpSuit)
             {
                 logger.Warn("Атакующая карта — козырная, защитная — нет");
@@ -209,7 +212,7 @@ namespace Game
                 return canBeat;
             }
 
-            // 5. Все остальные случаи (разные масти, ни одна не козырь)
+            // 5. Разные масти, ни одна не козырь
             logger.Warn($"Невозможно отбить {attackCard.Suit}{attackCard.Rank} картой {defendCard.Suit}{defendCard.Rank}");
             MessageBox.Show("❌ Этой картой нельзя отбить - масти не совпадают и карта не козырь");
             return false;
