@@ -65,7 +65,7 @@
             // 
             // flowLayoutPanelTable
             // 
-            flowLayoutPanelTable.BackColor = Color.Transparent;
+            flowLayoutPanelTable.BackColor = Color.White;
             resources.ApplyResources(flowLayoutPanelTable, "flowLayoutPanelTable");
             flowLayoutPanelTable.Name = "flowLayoutPanelTable";
             // 
