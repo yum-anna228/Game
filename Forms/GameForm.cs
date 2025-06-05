@@ -60,7 +60,14 @@ namespace Game
 
             Properties.Settings.Default.Language = Thread.CurrentThread.CurrentUICulture.Name;
             Properties.Settings.Default.Save();
-
+            foreach (Form form in Application.OpenForms)
+            {
+                if (form != this) 
+                {
+                    form.Close();
+                }
+            }
+            this.Close(); 
             Application.Restart();
         }
 
