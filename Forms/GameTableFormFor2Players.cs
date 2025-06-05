@@ -15,18 +15,28 @@ namespace Game
 
         public GameTableFormFor2Players(GameDbContext db)
         {
-            if (db == null)
+            try
             {
                 MessageBox.Show("Ошибка: База данных не инициализирована");
                 return;
             }
+            // Проверяем сохранённый язык пользователя
+            var cultureName = Properties.Settings.Default.Language ?? "ru-RU";
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(cultureName);
 
-            InitializeComponent();
-            _db = db;
-            StartUIUpdateTimer();
-            LoadPlayerCards();
-            ShowTrump();
-            UpdateStatus();
+                InitializeComponent();
+                _db = db;
+
+                StartUIUpdateTimer();
+                LoadPlayerCards();   // потенциальная проблема
+                ShowTrump();         // тут тоже
+                UpdateStatus();      // и здесь
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка в конструкторе формы:\n{ex.Message}\n\n{ex.StackTrace}");
+                logger.Error(ex, "Ошибка при создании GameTableFormFor2Players");
+            }
         }
 
         public void SetPlayerInGame(Guid sessionId, Guid playerInGameId)
