@@ -39,7 +39,7 @@ namespace Game
 
             if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
             {
-                MessageBox.Show("Введите логин и пароль.");
+                MessageBox.Show(Properties.Resources.EnterCredentials);
                 logger.Warn("Логин или пароль не введены");
                 return;
             }
@@ -48,7 +48,7 @@ namespace Game
             if (user == null)
             {
                 logger.Warn($"Неудачная попытка входа для пользователя '{username}'");
-                MessageBox.Show("Неверный логин или пароль");
+                MessageBox.Show(Properties.Resources.InvalidLoginPassword);
                 return;
             }
             logger.Info($"Пользователь '{username}' успешно вошёл");

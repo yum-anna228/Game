@@ -61,6 +61,33 @@ namespace Game.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Введите логин и пароль.
+        /// </summary>
+        internal static string EnterCredentials {
+            get {
+                return ResourceManager.GetString("EnterCredentials", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Неверный логин или пароль.
+        /// </summary>
+        internal static string InvalidLoginPassword {
+            get {
+                return ResourceManager.GetString("InvalidLoginPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Вы успешно вошли!.
+        /// </summary>
+        internal static string LoginSuccess {
+            get {
+                return ResourceManager.GetString("LoginSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap главная_форма {
