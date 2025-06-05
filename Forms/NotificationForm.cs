@@ -1,4 +1,5 @@
 ﻿using NLog;
+using System.Globalization;
 
 namespace Game
 {
@@ -14,6 +15,9 @@ namespace Game
 
         public NotificationForm()
         {
+            // Проверяем сохранённый язык пользователя
+            var cultureName = Properties.Settings.Default.Language ?? "ru-RU";
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(cultureName);
             InitializeComponent();
             logger.Info("Форма уведомления (NotificationForm) загружена");
         }

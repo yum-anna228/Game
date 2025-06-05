@@ -61,6 +61,69 @@ namespace Game.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Войти.
+        /// </summary>
+        internal static string Button_Login {
+            get {
+                return ResourceManager.GetString("Button_Login", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Зарегистрироваться.
+        /// </summary>
+        internal static string Button_Register {
+            get {
+                return ResourceManager.GetString("Button_Register", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на  Введите логин и пароль..
+        /// </summary>
+        internal static string EmptyLoginOrPassword {
+            get {
+                return ResourceManager.GetString("EmptyLoginOrPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Неверный логин или пароль.
+        /// </summary>
+        internal static string InvalidCredentials {
+            get {
+                return ResourceManager.GetString("InvalidCredentials", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на  Логин.
+        /// </summary>
+        internal static string Label_Login {
+            get {
+                return ResourceManager.GetString("Label_Login", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на  Пароль.
+        /// </summary>
+        internal static string Label_Password {
+            get {
+                return ResourceManager.GetString("Label_Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Вход в игру &quot;Дурак&quot;.
+        /// </summary>
+        internal static string LoginForm_Title {
+            get {
+                return ResourceManager.GetString("LoginForm_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap главная_форма {

@@ -35,38 +35,26 @@
             // 
             // label1
             // 
-            label1.AutoSize = true;
+            resources.ApplyResources(label1, "label1");
             label1.BackColor = Color.Transparent;
-            label1.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 204);
             label1.ForeColor = Color.White;
-            label1.Location = new Point(54, 40);
             label1.Name = "label1";
-            label1.Size = new Size(127, 31);
-            label1.TabIndex = 0;
-            label1.Text = "Статистика";
             // 
             // flowLayoutPanelStats
             // 
+            resources.ApplyResources(flowLayoutPanelStats, "flowLayoutPanelStats");
             flowLayoutPanelStats.BackColor = Color.Transparent;
-            flowLayoutPanelStats.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 204);
             flowLayoutPanelStats.ForeColor = Color.White;
-            flowLayoutPanelStats.Location = new Point(54, 74);
             flowLayoutPanelStats.Name = "flowLayoutPanelStats";
-            flowLayoutPanelStats.Size = new Size(701, 340);
-            flowLayoutPanelStats.TabIndex = 1;
             // 
             // StatisticsForm
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Font;
-            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
-            BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(800, 450);
             Controls.Add(flowLayoutPanelStats);
             Controls.Add(label1);
             DoubleBuffered = true;
             Name = "StatisticsForm";
-            Text = "StatisticsForm";
             ResumeLayout(false);
             PerformLayout();
         }

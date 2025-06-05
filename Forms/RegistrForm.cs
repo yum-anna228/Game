@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NLog;
+using System.Globalization;
 
 namespace Game
 {
@@ -15,6 +16,9 @@ namespace Game
 
         public RegistrForm(IAuthService authService, GameDbContext db)
         {
+            // Проверяем сохранённый язык пользователя
+            var cultureName = Properties.Settings.Default.Language ?? "ru-RU";
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(cultureName);
             InitializeComponent();
 
             _authService = authService ?? throw new ArgumentNullException(nameof(authService));

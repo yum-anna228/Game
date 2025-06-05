@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using NLog;
+using System.ComponentModel;
+using System.Globalization;
 
 namespace Game
 {
@@ -16,12 +18,14 @@ namespace Game
 
         public LoginForm(IAuthService authService, GameDbContext db)
         {
+            // Проверяем сохранённый язык пользователя
+            var cultureName = Properties.Settings.Default.Language ?? "ru-RU";
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(cultureName);
             InitializeComponent();
             _authService = authService;
             _db = db;
         }
 
-        
         public LoginForm(IAuthService authService, GameDbContext db, Guid? gameSessionId)
             : this(authService, db)
         {
@@ -36,7 +40,7 @@ namespace Game
 
             if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
             {
-                MessageBox.Show("Введите логин и пароль.");
+                MessageBox.Show(Properties.Resources.EmptyLoginOrPassword);
                 logger.Warn("Логин или пароль не введены");
                 return;
             }
@@ -45,7 +49,7 @@ namespace Game
             if (user == null)
             {
                 logger.Warn($"Неудачная попытка входа для пользователя '{username}'");
-                MessageBox.Show("Неверный логин или пароль");
+                MessageBox.Show(Properties.Resources.InvalidCredentials);
                 return;
             }
             logger.Info($"Пользователь '{username}' успешно вошёл");

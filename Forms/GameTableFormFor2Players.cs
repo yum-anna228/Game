@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NLog;
+using System.Globalization;
 
 namespace Game
 {
@@ -20,6 +21,9 @@ namespace Game
                 MessageBox.Show("Ошибка: База данных не инициализирована");
                 return;
             }
+            // Проверяем сохранённый язык пользователя
+            var cultureName = Properties.Settings.Default.Language ?? "ru-RU";
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(cultureName);
 
             InitializeComponent();
             _db = db;

@@ -117,93 +117,32 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="$this.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
-    <value>Stretch</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="lbl_rule.Size" type="System.Drawing.Size, System.Drawing">
+    <value>84, 38</value>
   </data>
   <data name="lbl_rule.Text" xml:space="preserve">
-    <value>Правила</value>
+    <value>Rules</value>
   </data>
-  <data name="&gt;&gt;lbl_rule.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>72, 98</value>
+    <value>58, 98</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>657, 322</value>
-  </data>
-  <data name="&gt;&gt;lbl_rule.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>RuleForm</value>
-  </data>
-  <data name="lbl_rule.Location" type="System.Drawing.Point, System.Drawing">
-    <value>58, 43</value>
-  </data>
-  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 10.2pt</value>
-  </data>
-  <data name="&gt;&gt;lbl_rule.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>9, 23</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="lbl_rule.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="lbl_rule.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Правила</value>
-  </data>
-  <data name="label1.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="lbl_rule.Size" type="System.Drawing.Size, System.Drawing">
-    <value>127, 38</value>
-  </data>
-  <data name="&gt;&gt;lbl_rule.Name" xml:space="preserve">
-    <value>lbl_rule</value>
+    <value>700, 276</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
-    <value>1. Игра ведётся колодой из 36 карт.
-2. Козырная масть определяется последней картой в колоде.
-3. Игроки по очереди атакуют и защищаются.
-4. Атакующий кладёт карту на стол.
-5. Защищающийся должен отбить её старшей картой той же масти или козырём.
-6. Если защита не удалась — игрок забирает карту.
-7. После окончания хода карты можно бито, если все отбиты.
-8. Побеждает тот, кто первым избавится от всех своих карт.
-9. При пустой колоде победитель определяется по количеству карт на руке.
+    <value>The game is played with a 36-card deck. 
+The trump suit is determined by the last card in the deck. 
+Players take turns attacking and defending.
+ The attacking player places a card on  the table. 
+The defending player must beat it with a higher card of the same suit or a trump card. 
+If rhe defense fails, the player takes the card. 
+At the end of the turn, cards are discarded if all are successfully beaten.
+ The first player to get rid of all their cards wins.
+ If the deck runs out, the winner is determined by the number of cards remaining in hand. 
+Card Rankings: 6 &lt; 7 &lt; 8 &lt; 9 &lt; 10 &lt; Jack &lt; Queen &lt; King &lt; Ace. 
 
-Карты:
-- Старшинство: 6 &lt; 7 &lt; 8 &lt; 9 &lt; 10 &lt; Валет &lt; Дама &lt; Король &lt; Туз
-
-Козырные карты старше обычных.</value>
-  </data>
-  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>900, 518</value>
-  </data>
-  <data name="&gt;&gt;label1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="lbl_rule.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 16.2pt</value>
+Trump cards beat non-trump cards.</value>
   </data>
   <data name="$this.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -11612,16 +11551,7 @@
         yOhDp+fO/eW4fP4/mqB7/yx4VSwAAAAASUVORK5CYII=
 </value>
   </data>
-  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Rule</value>
   </data>
-  <data name="&gt;&gt;label1.Name" xml:space="preserve">
-    <value>label1</value>
-  </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="$this.Language" type="System.Globalization.CultureInfo, System.Private.CoreLib, Culture=neutral, PublicKeyToken=7cec85d7bea7798e">
-    <value>en-US</value>
-  </metadata>
 </root>
