@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using NLog;
+using System.Globalization;
 
 namespace Game
 {
@@ -16,6 +17,8 @@ namespace Game
 
         public LoginForm(IAuthService authService, GameDbContext db)
         {
+            var cultureName = Properties.Settings.Default.Language ?? "ru-RU";
+            var culture = new CultureInfo(cultureName);
             InitializeComponent();
             _authService = authService;
             _db = db;

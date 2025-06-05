@@ -1,4 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Globalization;
+using System.Threading;
+using System.Windows.Forms;
+
+using Microsoft.EntityFrameworkCore;
 using NLog;
 
 namespace Game
@@ -17,20 +22,25 @@ namespace Game
         {
             try
             {
-                MessageBox.Show("Ошибка: База данных не инициализирована");
-                return;
-            }
-            // Проверяем сохранённый язык пользователя
-            var cultureName = Properties.Settings.Default.Language ?? "ru-RU";
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo(cultureName);
+                // Получаем сохранённую культуру
+                var cultureName = Properties.Settings.Default.Language ?? "ru-RU";
+                var culture = new CultureInfo(cultureName);
+                Thread.CurrentThread.CurrentUICulture = culture;
+                Thread.CurrentThread.CurrentCulture = culture;
+
+                if (db == null)
+                {
+                    MessageBox.Show("Ошибка: База данных не инициализирована");
+                    throw new ArgumentNullException(nameof(db));
+                }
 
                 InitializeComponent();
                 _db = db;
 
                 StartUIUpdateTimer();
-                LoadPlayerCards();   // потенциальная проблема
-                ShowTrump();         // тут тоже
-                UpdateStatus();      // и здесь
+                LoadPlayerCards();
+                ShowTrump();
+                UpdateStatus();
             }
             catch (Exception ex)
             {
@@ -43,17 +53,14 @@ namespace Game
         {
             _gameSessionId = sessionId;
             _playerInGameId = playerInGameId;
-
             var session = _db.GameSessions.Find(sessionId);
             if (session == null)
             {
                 MessageBox.Show("Ошибка: Сессия не найдена");
                 return;
             }
-
             _gameLogic = new DurakGameLogic(_db, _gameSessionId);
             _deckFinished = false;
-
             LoadPlayerCards();
             ShowTrump();
             UpdateStatus();
@@ -77,13 +84,18 @@ namespace Game
 
         private void LoadPlayerCards()
         {
+            if (flowLayoutPanelYourCards == null)
+            {
+                logger.Warn("flowLayoutPanelYourCards == null");
+                return;
+            }
+
             var cards = _db.Cards
                 .Where(c => c.PlayerInGameId == _playerInGameId && c.GameSessionId == _gameSessionId)
                 .Take(6)
                 .ToList();
 
             flowLayoutPanelYourCards.Controls.Clear();
-
             foreach (var card in cards)
             {
                 var btn = new Button
@@ -105,10 +117,8 @@ namespace Game
             var btn = sender as Button;
             var card = btn?.Tag as Card;
             if (card == null) return;
-
             var player = _db.PlayerInGames.Find(_playerInGameId);
             if (player == null) return;
-
             try
             {
                 if (player.IsAttacker)
@@ -123,15 +133,12 @@ namespace Game
                                     c.GameSessionId == _gameSessionId &&
                                     c.PlayerInGameId != _playerInGameId)
                         .ToList();
-
                     if (!attackCards.Any())
                     {
                         MessageBox.Show("Нет карт для отбития");
                         return;
                     }
-
                     var lastAttackCard = attackCards.Last();
-
                     if (_gameLogic.CanBeat(lastAttackCard, card))
                     {
                         await _gameLogic.MakeDefenceAsync(_playerInGameId, card, lastAttackCard);
@@ -143,7 +150,6 @@ namespace Game
                         return;
                     }
                 }
-
                 await _db.SaveChangesAsync();
                 LoadPlayerCards();
                 UpdateTable();
@@ -158,12 +164,17 @@ namespace Game
 
         private void UpdateTable()
         {
+            if (flowLayoutPanelTable == null)
+            {
+                logger.Warn("flowLayoutPanelTable == null");
+                return;
+            }
+
             var playedCards = _db.Cards
                 .Where(c => c.TurnId.HasValue && c.GameSessionId == _gameSessionId)
                 .ToList();
 
             flowLayoutPanelTable.Controls.Clear();
-
             foreach (var card in playedCards)
             {
                 var label = new Label
@@ -195,6 +206,12 @@ namespace Game
 
         private void ShowTrump()
         {
+            if (lblTrumpSuit == null)
+            {
+                logger.Warn("lblTrumpSuit == null");
+                return;
+            }
+
             var session = _db.GameSessions.Find(_gameSessionId);
             if (session != null)
             {
@@ -207,15 +224,12 @@ namespace Game
         {
             var playedCards = _db.Cards.Where(c => c.TurnId.HasValue).ToList();
             if (playedCards.Count == 0) return;
-
             foreach (var card in playedCards)
             {
                 card.TurnId = null;
             }
-
             _db.Cards.UpdateRange(playedCards);
             await _db.SaveChangesAsync();
-
             await SwitchTurnAsync();
         }
 
@@ -223,16 +237,13 @@ namespace Game
         {
             var playedCards = _db.Cards.Where(c => c.TurnId.HasValue).ToList();
             if (playedCards.Count == 0) return;
-
             foreach (var card in playedCards)
             {
                 card.TurnId = null;
                 card.PlayerInGameId = _playerInGameId;
             }
-
             _db.Cards.UpdateRange(playedCards);
             await _db.SaveChangesAsync();
-
             LoadPlayerCards();
             UpdateTable();
         }
@@ -242,36 +253,36 @@ namespace Game
             var players = _db.PlayerInGames
                 .Where(p => p.GameSessionId == _gameSessionId)
                 .ToList();
-
             if (players.Count != 2)
             {
                 MessageBox.Show("Неверное количество игроков");
                 return;
             }
-
             var attacker = players.FirstOrDefault(p => p.IsAttacker);
             var defender = players.FirstOrDefault(p => p.IsDefender);
-
             if (attacker == null || defender == null)
             {
                 MessageBox.Show("Не определены роли игроков");
                 return;
             }
-
             attacker.IsAttacker = false;
             defender.IsAttacker = true;
             attacker.IsDefender = true;
             defender.IsDefender = false;
-
             _db.PlayerInGames.UpdateRange(players);
             await _db.SaveChangesAsync();
-
             await DrawCardsIfNeeded();
             await CheckWinCondition();
         }
 
         private void UpdateStatus()
         {
+            if (lblStatus == null)
+            {
+                logger.Warn("lblStatus == null");
+                return;
+            }
+
             var player = _db.PlayerInGames.Find(_playerInGameId);
             if (player != null)
             {
@@ -284,23 +295,18 @@ namespace Game
             var playerCards = _db.Cards
                 .Where(c => c.PlayerInGameId == _playerInGameId)
                 .ToList();
-
             int cardsNeeded = 6 - playerCards.Count;
             if (cardsNeeded <= 0) return;
-
             var availableCards = _db.Cards
                 .Where(c => c.PlayerInGameId == null || c.PlayerInGameId == Guid.Empty)
                 .Take(cardsNeeded)
                 .ToList();
-
             foreach (var card in availableCards)
             {
                 card.PlayerInGameId = _playerInGameId;
             }
-
             _db.Cards.UpdateRange(availableCards);
             await _db.SaveChangesAsync();
-
             LoadPlayerCards();
             UpdateStatus();
             await CheckWinCondition();
@@ -309,22 +315,16 @@ namespace Game
         private async Task CheckWinCondition()
         {
             if (_deckFinished) return;
-
             var players = await _db.PlayerInGames
                 .Where(p => p.GameSessionId == _gameSessionId)
                 .ToListAsync();
-
             if (players.Count != 2) return;
-
             var player1 = players[0];
             var player2 = players[1];
-
             var player1Cards = await _db.Cards
                 .CountAsync(c => c.PlayerInGameId == player1.Id && c.TurnId == null);
-
             var player2Cards = await _db.Cards
                 .CountAsync(c => c.PlayerInGameId == player2.Id && c.TurnId == null);
-
             var remainingDeckCount = await _db.Cards
                 .CountAsync(c => c.PlayerInGameId == null);
 
@@ -339,7 +339,6 @@ namespace Game
                     _deckFinished = true;
                     return;
                 }
-
                 if (player1Cards > player2Cards)
                 {
                     await HandleGameEnd(player1.Id == _playerInGameId);
@@ -359,7 +358,6 @@ namespace Game
             logger.Info($"Игрок {_playerInGameId} {(isWinner ? "выиграл" : "проиграл")}");
 
             await UpdatePlayerStatistics(isWinner);
-
             this.Invoke((MethodInvoker)delegate
             {
                 using (var winLoseForm = new WinningForm(message, _db))
@@ -367,7 +365,6 @@ namespace Game
                     winLoseForm.ShowDialog(this);
                 }
             });
-
             _deckFinished = true;
         }
 
@@ -379,17 +376,14 @@ namespace Game
                 logger.Warn("Не найден PlayerInGame");
                 return;
             }
-
             var user = _db.Users.Find(userInGame.UserId);
             if (user == null)
             {
                 logger.Warn("Пользователь не найден");
                 return;
             }
-
             var stats = await _db.PlayerStatistics
                 .FirstOrDefaultAsync(s => s.UserId == user.Id);
-
             if (stats == null)
             {
                 stats = new PlayerStatistics
@@ -417,7 +411,6 @@ namespace Game
                 }
                 _db.PlayerStatistics.Update(stats);
             }
-
             await _db.SaveChangesAsync();
         }
 
