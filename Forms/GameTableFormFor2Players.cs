@@ -41,7 +41,7 @@ namespace Game
             var session = _db.GameSessions.Find(sessionId);
             if (session == null)
             {
-                MessageBox.Show("Ошибка: Сессия не найдена");
+                MessageBox.Show(Properties.Resources.InvalidSession);
                 return;
             }
 
@@ -120,7 +120,7 @@ namespace Game
 
                     if (!attackCards.Any())
                     {
-                        MessageBox.Show("Нет карт для отбития");
+                        MessageBox.Show(Properties.Resources.NoCardsToBeat);
                         return;
                     }
 
@@ -133,7 +133,9 @@ namespace Game
                     }
                     else
                     {
-                        MessageBox.Show($"Нельзя отбить {lastAttackCard.Suit}{lastAttackCard.Rank} картой {card.Suit}{card.Rank}");
+                        MessageBox.Show(string.Format(Properties.Resources.CannotBeatCard,
+                        $"{lastAttackCard.Suit}{lastAttackCard.Rank}",
+                        $"{card.Suit}{card.Rank}")); ;
                         return;
                     }
                 }
@@ -239,7 +241,7 @@ namespace Game
 
             if (players.Count != 2)
             {
-                MessageBox.Show("Неверное количество игроков");
+                MessageBox.Show(Properties.Resources.IncorrectNumberOfPlayers);
                 return;
             }
 
@@ -248,7 +250,7 @@ namespace Game
 
             if (attacker == null || defender == null)
             {
-                MessageBox.Show("Не определены роли игроков");
+                MessageBox.Show(Properties.Resources.PlayerRolesNotDefined);
                 return;
             }
 
@@ -328,7 +330,7 @@ namespace Game
                 {
                     this.Invoke((MethodInvoker)delegate
                     {
-                        MessageBox.Show("Ничья! Оба игрока не имеют карт.");
+                        MessageBox.Show(Properties.Resources.GameOver_Draw);
                     });
                     _deckFinished = true;
                     return;

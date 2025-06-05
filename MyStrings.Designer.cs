@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Game.Properties {
+namespace Game {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace Game.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    internal class MyStrings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources() {
+        internal MyStrings() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Game.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Game.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Game.MyStrings", typeof(MyStrings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,56 +61,11 @@ namespace Game.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Войти.
-        /// </summary>
-        internal static string Button_Login {
-            get {
-                return ResourceManager.GetString("Button_Login", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Зарегистрироваться.
-        /// </summary>
-        internal static string Button_Register {
-            get {
-                return ResourceManager.GetString("Button_Register", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Нельзя отбить {0} картой {1}.
-        /// </summary>
-        internal static string CannotBeatCard {
-            get {
-                return ResourceManager.GetString("CannotBeatCard", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Нельзя отбить козырную карту обычной.
-        /// </summary>
-        internal static string CannotBeatTrumpCard {
-            get {
-                return ResourceManager.GetString("CannotBeatTrumpCard", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Ищет локализованную строку, похожую на  Введите логин и пароль..
         /// </summary>
         internal static string EmptyLoginOrPassword {
             get {
                 return ResourceManager.GetString("EmptyLoginOrPassword", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Ничья! Оба игрока не имеют карт..
-        /// </summary>
-        internal static string GameOver_Draw {
-            get {
-                return ResourceManager.GetString("GameOver_Draw", resourceCulture);
             }
         }
         
@@ -142,47 +97,11 @@ namespace Game.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Неверный логин или пароль.
-        /// </summary>
-        internal static string InvalidCredentials {
-            get {
-                return ResourceManager.GetString("InvalidCredentials", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Ищет локализованную строку, похожую на Ошибка: Сессия не найдена.
         /// </summary>
         internal static string InvalidSession {
             get {
                 return ResourceManager.GetString("InvalidSession", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на  Логин.
-        /// </summary>
-        internal static string Label_Login {
-            get {
-                return ResourceManager.GetString("Label_Login", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на  Пароль.
-        /// </summary>
-        internal static string Label_Password {
-            get {
-                return ResourceManager.GetString("Label_Password", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Вход в игру &quot;Дурак&quot;.
-        /// </summary>
-        internal static string LoginForm_Title {
-            get {
-                return ResourceManager.GetString("LoginForm_Title", resourceCulture);
             }
         }
         
@@ -214,24 +133,6 @@ namespace Game.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Поражение игрока {0}, всего поражений: {1}.
-        /// </summary>
-        internal static string Statistics_PlayerLost {
-            get {
-                return ResourceManager.GetString("Statistics_PlayerLost", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Победа игрока {0}, всего побед: {1}.
-        /// </summary>
-        internal static string Statistics_PlayerWon {
-            get {
-                return ResourceManager.GetString("Statistics_PlayerWon", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Ищет локализованную строку, похожую на Вы атакуете.
         /// </summary>
         internal static string Status_Attacker {
@@ -246,56 +147,6 @@ namespace Game.Properties {
         internal static string Status_Defender {
             get {
                 return ResourceManager.GetString("Status_Defender", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap главная_форма {
-            get {
-                object obj = ResourceManager.GetObject("главная форма", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap главное_окно {
-            get {
-                object obj = ResourceManager.GetObject("главное окно", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap игровой_стол {
-            get {
-                object obj = ResourceManager.GetObject("игровой стол", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Снимок_экрана_2025_06_02_213959 {
-            get {
-                object obj = ResourceManager.GetObject("Снимок экрана 2025-06-02 213959", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap фон {
-            get {
-                object obj = ResourceManager.GetObject("фон", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

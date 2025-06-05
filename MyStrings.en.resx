@@ -117,83 +117,38 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="главное окно" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\главное окно.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="главная форма" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\главная форма.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="игровой стол" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\игровой стол.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="фон" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\фон.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Снимок экрана 2025-06-02 213959" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Снимок экрана 2025-06-02 213959.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="InvalidCredentials" xml:space="preserve">
-    <value>Неверный логин или пароль</value>
-  </data>
-  <data name="LoginForm_Title" xml:space="preserve">
-    <value>Вход в игру "Дурак"</value>
-  </data>
-  <data name="Label_Login" xml:space="preserve">
-    <value> Логин</value>
-  </data>
-  <data name="Label_Password" xml:space="preserve">
-    <value> Пароль</value>
-  </data>
-  <data name="Button_Login" xml:space="preserve">
-    <value>Войти</value>
-  </data>
-  <data name="Button_Register" xml:space="preserve">
-    <value>Зарегистрироваться</value>
-  </data>
-  <data name="CannotBeatTrumpCard" xml:space="preserve">
-    <value>Нельзя отбить козырную карту обычной</value>
+  <data name="NoCardsToBeat" xml:space="preserve">
+    <value>No cards to beat</value>
   </data>
   <data name="GameOver_Draw" xml:space="preserve">
-    <value>Ничья! Оба игрока не имеют карт.</value>
-  </data>
-  <data name="EmptyLoginOrPassword" xml:space="preserve">
-    <value> Введите логин и пароль.</value>
-  </data>
-  <data name="GameOver_Lose" xml:space="preserve">
-    <value>😭 К сожалению, вы проиграли.</value>
+    <value>Draw! Both players have no cards left.</value>
   </data>
   <data name="GameOver_Win" xml:space="preserve">
-    <value>🎉 Ура! Вы выиграли!</value>
+    <value>🎉 Congratulations!
+You won!</value>
   </data>
-  <data name="IncorrectNumberOfPlayers" xml:space="preserve">
-    <value>Неверное количество игроков</value>
+  <data name="GameOver_Lose" xml:space="preserve">
+    <value>😭 Unfortunately, you lost.</value>
   </data>
   <data name="InvalidSession" xml:space="preserve">
-    <value>Ошибка: Сессия не найдена</value>
+    <value>Error: Session not found</value>
+  </data>
+  <data name="IncorrectNumberOfPlayers" xml:space="preserve">
+    <value>Incorrect number of players</value>
   </data>
   <data name="PlayerRolesNotDefined" xml:space="preserve">
-    <value>Не определены роли игроков</value>
-  </data>
-  <data name="Statistics_PlayerCreated" xml:space="preserve">
-    <value>Создана новая статистика для пользователя {0}</value>
-  </data>
-  <data name="Statistics_PlayerLost" xml:space="preserve">
-    <value>Поражение игрока {0}, всего поражений: {1}</value>
-  </data>
-  <data name="Statistics_PlayerWon" xml:space="preserve">
-    <value>Победа игрока {0}, всего побед: {1}</value>
+    <value>Player roles are not defined</value>
   </data>
   <data name="Status_Attacker" xml:space="preserve">
-    <value>Вы атакуете</value>
+    <value>You are attacking</value>
   </data>
   <data name="Status_Defender" xml:space="preserve">
-    <value>Вы защищаетесь</value>
+    <value>You are defending</value>
   </data>
-  <data name="NoCardsToBeat" xml:space="preserve">
-    <value>Нет карт для отбития</value>
+  <data name="Statistics_PlayerCreated" xml:space="preserve">
+    <value>Created new stats for player {0}</value>
   </data>
-  <data name="CannotBeatCard" xml:space="preserve">
-    <value>Нельзя отбить {0} картой {1}</value>
+  <data name="EmptyLoginOrPassword1" xml:space="preserve">
+    <value>Enter your username or password</value>
   </data>
 </root>
