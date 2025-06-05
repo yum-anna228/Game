@@ -39,7 +39,7 @@ namespace Game
                 string.IsNullOrWhiteSpace(password) ||
                 string.IsNullOrWhiteSpace(confirmPassword))
             {
-                MessageBox.Show("Все поля должны быть заполнены.");
+                MessageBox.Show(Properties.Resources.AllFieldsRequired);
                 logger.Warn("Не все поля заполнены при регистрации");
                 return;
             }
@@ -47,7 +47,7 @@ namespace Game
             // Проверка совпадения паролей
             if (password != confirmPassword)
             {
-                MessageBox.Show("Пароли не совпадают.");
+                MessageBox.Show(Properties.Resources.PasswordsDoNotMatch);
                 logger.Warn("Пароли не совпадают");
                 return;
             }
@@ -57,7 +57,7 @@ namespace Game
             if (success)
             {
                 logger.Info($"Пользователь '{username}' успешно зарегистрирован");
-                MessageBox.Show("Регистрация успешна!");
+                MessageBox.Show(Properties.Resources.RegistrationSuccessful);
 
                 var loginForm = new LoginForm(_authService, _db);
                 loginForm.Show();
@@ -66,7 +66,7 @@ namespace Game
             else
             {
                 logger.Error($"Ошибка регистрации для пользователя '{username}' — возможно, пользователь уже существует");
-                MessageBox.Show("Ошибка регистрации. Возможно, пользователь с таким именем уже существует.");
+                MessageBox.Show($"{Properties.Resources.RegistrationFailed}. {Properties.Resources.UserAlreadyExists}");
             }
         }
 

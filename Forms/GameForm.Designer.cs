@@ -56,6 +56,7 @@ namespace Game
             btn_Rules.ForeColor = Color.White;
             btn_Rules.Name = "btn_Rules";
             btn_Rules.UseVisualStyleBackColor = false;
+            btn_Rules.Click += btn_Rules_Click;
             // 
             // btn_language
             // 

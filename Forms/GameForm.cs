@@ -86,5 +86,12 @@ namespace Game
             Properties.Settings.Default.Language = Thread.CurrentThread.CurrentUICulture.Name;
             Properties.Settings.Default.Save();
         }
+
+        private void btn_Rules_Click(object sender, EventArgs e)
+        {
+            logger.Debug("Игрок открыл правила игры");
+            var rulesForm = new RuleForm();
+            rulesForm.ShowDialog(this);
+        }
     }
 }

@@ -142,4 +142,19 @@
   <data name="InvalidLoginPassword" xml:space="preserve">
     <value>Неверный логин или пароль</value>
   </data>
+  <data name="AllFieldsRequired" xml:space="preserve">
+    <value>Все поля должны быть заполнены</value>
+  </data>
+  <data name="PasswordsDoNotMatch" xml:space="preserve">
+    <value>Пароли не совпадают</value>
+  </data>
+  <data name="RegistrationSuccessful" xml:space="preserve">
+    <value>Регистрация успешна!</value>
+  </data>
+  <data name="RegistrationFailed" xml:space="preserve">
+    <value>Ошибка регистрации</value>
+  </data>
+  <data name="UserAlreadyExists" xml:space="preserve">
+    <value>Возможно, пользователь с таким именем уже существует</value>
+  </data>
 </root>
