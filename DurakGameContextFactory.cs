@@ -9,7 +9,6 @@ namespace Game
     {
         public GameDbContext CreateDbContext(string[] args)
         {
-            // Для диагностики выведем текущую директорию
             Console.WriteLine($"Current directory: {Directory.GetCurrentDirectory()}");
 
             // Создаем конфигурацию
@@ -25,7 +24,7 @@ namespace Game
 
             if (string.IsNullOrEmpty(connectionString))
             {
-                throw new Exception("Connection string 'DefaultConnection' not found");
+                throw new Exception("Строка подключения 'DefaultConnection' не найдена");
             }
 
             // Настраиваем опции
