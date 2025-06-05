@@ -13,22 +13,20 @@ namespace Game
 
         private readonly IAuthService _authService;
         private readonly GameDbContext _db;
-        private readonly IServiceProvider _serviceProvider;
 
 
-        public GameForm(IAuthService authService, GameDbContext db, IServiceProvider serviceProvider)
+        public GameForm(IAuthService authService, GameDbContext db)
         {
             InitializeComponent();
             _authService = authService;
             _db = db;
-            _serviceProvider = serviceProvider;
         }
         
 
         private void btn_Game_Click(object sender, EventArgs e)
         {
             logger.Debug(" нопка '»грать' нажата");
-            var loginForm = new LoginForm(_authService, _db, _serviceProvider);
+            var loginForm = new LoginForm(_authService, _db);
             loginForm.FormClosed += (s, args) =>
             {
                 logger.Info("LoginForm закрыта");

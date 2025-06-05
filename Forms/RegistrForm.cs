@@ -1,11 +1,10 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
 using NLog;
 
 namespace Game
 {
-
     /// <summary>
-    /// форма регистрации
+    /// Форма регистрации
     /// </summary>
     public partial class RegistrForm : Form
     {
@@ -13,14 +12,14 @@ namespace Game
 
         private readonly IAuthService _authService;
         private readonly GameDbContext _db;
-        private readonly IServiceProvider _serviceProvider;
 
-        public RegistrForm(IAuthService authService, GameDbContext db, IServiceProvider serviceProvider)
+        public RegistrForm(IAuthService authService, GameDbContext db)
         {
-            _authService = authService;
-            _db = db;
-            _serviceProvider = serviceProvider;
             InitializeComponent();
+
+            _authService = authService ?? throw new ArgumentNullException(nameof(authService));
+            _db = db ?? throw new ArgumentNullException(nameof(db));
+
             logger.Info("Форма регистрации загружена");
         }
 
@@ -56,7 +55,8 @@ namespace Game
             {
                 logger.Info($"Пользователь '{username}' успешно зарегистрирован");
                 MessageBox.Show("Регистрация успешна!");
-                var loginForm = _serviceProvider.GetRequiredService<LoginForm>();
+
+                var loginForm = new LoginForm(_authService, _db);
                 loginForm.Show();
                 this.Hide();
             }
@@ -70,7 +70,8 @@ namespace Game
         private void btn_Enter1_Click(object sender, EventArgs e)
         {
             logger.Debug("Кнопка 'Войти' нажата — переход на форму входа");
-            var loginForm = _serviceProvider.GetRequiredService<LoginForm>();
+
+            var loginForm = new LoginForm(_authService, _db);
             loginForm.Show();
             this.Hide();
         }

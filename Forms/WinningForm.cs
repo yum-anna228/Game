@@ -1,18 +1,19 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using NLog;
+﻿using NLog;
 
 namespace Game
 {
     public partial class WinningForm : Form
     {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
-        private readonly IServiceProvider _serviceProvider;
+        private readonly GameDbContext _db;
 
-        public WinningForm(string message, IServiceProvider serviceProvider)
+        public WinningForm(string message, GameDbContext db)
         {
-            InitializeComponent(); 
+            if (db == null)
+                throw new ArgumentNullException(nameof(db));
 
-            _serviceProvider = serviceProvider;
+            InitializeComponent();
+            _db = db;
 
             if (lbl_winner != null)
             {
@@ -24,7 +25,14 @@ namespace Game
         private void btn_NewGame_Click(object sender, EventArgs e)
         {
             logger.Debug("Кнопка 'Новая игра' нажата");
-            var mainMenuForm = _serviceProvider.GetRequiredService<GameForm>();
+
+            // Предположим, что authService уже где-то доступен или получается другим способом
+            var authService = new AuthService(
+                new UserRepository(_db),
+                new PasswordHasher()
+            );
+
+            var mainMenuForm = new GameForm(authService, _db);
             mainMenuForm.Show();
             this.Close();
         }
@@ -32,7 +40,8 @@ namespace Game
         private void button1_Click(object sender, EventArgs e)
         {
             logger.Debug("Переход к статистике");
-            var statsForm = _serviceProvider.GetRequiredService<StatisticsForm>();
+
+            var statsForm = new StatisticsForm(_db);
             statsForm.Show();
             this.Hide();
         }

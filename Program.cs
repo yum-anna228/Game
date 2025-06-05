@@ -1,9 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using NLog.Config;
 using NLog.Targets;
 using NLog;
+using Castle.Windsor;
+using Component = Castle.MicroKernel.Registration.Component;
 
 namespace Game
 {
@@ -29,36 +30,41 @@ namespace Game
 
             logger.Info("Игра запущена");
             
-
-
-            var services = new ServiceCollection();
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .Build();
 
-            // Регистрация контекста БД
-            services.AddDbContext<GameDbContext>(options =>
-                options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
+            var connectionString = configuration.GetConnectionString("DefaultConnection");
+
+            // Инициализация Windsor контейнера
+            var container = new WindsorContainer();
+
+            // Регистрация DbContext
+            container.Register(
+                Component.For<GameDbContext>()
+                    .UsingFactoryMethod(kernel =>
+                    {
+                        var optionsBuilder = new DbContextOptionsBuilder<GameDbContext>();
+                        optionsBuilder.UseNpgsql(connectionString);
+                        return new GameDbContext(optionsBuilder.Options);
+                    })
+                    .LifestyleTransient()
+            );
 
             // Регистрация репозиториев
-            services.AddScoped<IUserRepository, UserRepository>();
+            container.Register(
+                Component.For<IUserRepository>().ImplementedBy<UserRepository>().LifestyleTransient(),
+                Component.For<IGameSessionRepository>().ImplementedBy<GameSessionRepository>().LifestyleTransient(),
+                Component.For<ICardRepository>().ImplementedBy<CardRepository>().LifestyleTransient()
+            );
 
             // Регистрация сервисов
-            services.AddScoped<IPasswordHasher, PasswordHasher>();
-            services.AddScoped<IAuthService, AuthService>();
-
-            // Регистрация форм
-            services.AddTransient<LoginForm>();
-            services.AddTransient<RegistrForm>();
-            services.AddTransient<GameForm>();
-            services.AddTransient<SelectModeForm>();
-            services.AddTransient<GameTableFormFor2Players>();
-            services.AddTransient<StatisticsForm>();
-            services.AddTransient<RuleForm>();
-
-
-            var serviceProvider = services.BuildServiceProvider();
+            container.Register(
+                Component.For<IAuthService>().ImplementedBy<AuthService>().LifestyleTransient(),
+                Component.For<IPasswordHasher>().ImplementedBy<PasswordHasher>().LifestyleTransient(),
+                Component.For<DeckService>().LifestyleTransient()
+            );
 
             if (args.Length >= 4 && args[0] == "--session" && args[2] == "--player")
             {
@@ -66,8 +72,13 @@ namespace Game
                 {
                     try
                     {
-                        var gameTableForm = serviceProvider.GetRequiredService<GameTableFormFor2Players>();
-                        gameTableForm.SetPlayerInGame(sessionId, playerInGameId); 
+                        // Получаем зависимости из контейнера
+                        var db = container.Resolve<GameDbContext>();
+
+                        // Создаём форму напрямую
+                        var gameTableForm = new GameTableFormFor2Players(db); 
+                        gameTableForm.SetPlayerInGame(sessionId, playerInGameId);
+
                         Application.Run(gameTableForm);
                         return;
                     }
@@ -80,8 +91,10 @@ namespace Game
 
             try
             {
-                var mainMenu = serviceProvider.GetRequiredService<GameForm>();
-                Application.Run(mainMenu);
+                var authService = container.Resolve<IAuthService>();
+                var db = container.Resolve<GameDbContext>();
+
+                Application.Run(new GameForm(authService, db));
             }
             catch (Exception ex)
             {

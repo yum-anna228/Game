@@ -12,20 +12,18 @@ namespace Game
 
         private readonly IAuthService _authService;
         private readonly GameDbContext _db;
-        private readonly IServiceProvider _serviceProvider;
         private Guid? _gameSessionId;
 
-        public LoginForm(IAuthService authService, GameDbContext db, IServiceProvider serviceProvider)
+        public LoginForm(IAuthService authService, GameDbContext db)
         {
             InitializeComponent();
             _authService = authService;
             _db = db;
-            _serviceProvider = serviceProvider;
         }
 
         
-        public LoginForm(IAuthService authService, GameDbContext db, Guid? gameSessionId, IServiceProvider serviceProvider)
-            : this(authService, db, serviceProvider)
+        public LoginForm(IAuthService authService, GameDbContext db, Guid? gameSessionId)
+            : this(authService, db)
         {
             _gameSessionId = gameSessionId;
         }
@@ -69,18 +67,15 @@ namespace Game
                 _db.PlayerInGames.Add(playerInGame);
                 await _db.SaveChangesAsync();
 
-                var scope = _serviceProvider.CreateScope();
-                var scopedProvider = scope.ServiceProvider;
-
-                var gameForm = _serviceProvider.GetRequiredService<GameTableFormFor2Players>();
-                gameForm.SetPlayerInGame(_gameSessionId.Value, playerInGame.Id);
-                gameForm.Show();
+                var gameTableForm = new GameTableFormFor2Players(_db);
+                gameTableForm.SetPlayerInGame(_gameSessionId.Value, playerInGame.Id);
+                gameTableForm.Show();
                 this.Hide();
             }
             else
             {
                 logger.Info("Переход к выбору режима игры");
-                var selectModeForm = _serviceProvider.GetRequiredService<SelectModeForm>();
+                var selectModeForm = new SelectModeForm(_db);
                 selectModeForm.SetCurrentUser(user);
                 selectModeForm.Show();
                 this.Hide();
@@ -89,8 +84,7 @@ namespace Game
 
         private void btn_Registr_Click(object sender, EventArgs e)
         {
-            logger.Info("Кнопка 'Зарегистрироваться' нажата");
-            var registForm = _serviceProvider.GetRequiredService<RegistrForm>();
+            var registForm = new RegistrForm(_authService, _db);
             registForm.Show();
             this.Hide();
         }

@@ -1,23 +1,19 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NLog;
-using System.Data;
 
 namespace Game
 {
     public partial class GameTableFormFor2Players : Form
     {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
-
         private System.Windows.Forms.Timer _uiUpdateTimer;
         private readonly GameDbContext _db;
         private Guid _gameSessionId;
         private Guid _playerInGameId;
-        private readonly IServiceProvider _serviceProvider;
         private DurakGameLogic _gameLogic;
         private bool _deckFinished = false;
 
-
-        public GameTableFormFor2Players(GameDbContext db, IServiceProvider serviceProvider)
+        public GameTableFormFor2Players(GameDbContext db)
         {
             if (db == null)
             {
@@ -25,9 +21,7 @@ namespace Game
                 return;
             }
 
-            InitializeComponent(); // Теперь после проверки
-
-            _serviceProvider = serviceProvider;
+            InitializeComponent();
             _db = db;
             StartUIUpdateTimer();
             LoadPlayerCards();
@@ -57,8 +51,8 @@ namespace Game
 
         private void StartUIUpdateTimer()
         {
-            _uiUpdateTimer = new System.Windows.Forms.Timer(); 
-            _uiUpdateTimer.Interval = 1000; 
+            _uiUpdateTimer = new System.Windows.Forms.Timer();
+            _uiUpdateTimer.Interval = 1000;
             _uiUpdateTimer.Tick += (s, e) =>
             {
                 this.Invoke((System.Windows.Forms.MethodInvoker)delegate
@@ -70,7 +64,6 @@ namespace Game
             };
             _uiUpdateTimer.Start();
         }
-
 
         private void LoadPlayerCards()
         {
@@ -92,7 +85,6 @@ namespace Game
                     TextAlign = ContentAlignment.MiddleCenter,
                     Tag = card
                 };
-
                 btn.Click += CardButton_Click;
                 flowLayoutPanelYourCards.Controls.Add(btn);
             }
@@ -102,34 +94,56 @@ namespace Game
         {
             var btn = sender as Button;
             var card = btn?.Tag as Card;
-
-            if (card == null)
-            {
-                logger.Warn("Кнопка нажата, но карта не найдена");
-            }
+            if (card == null) return;
 
             var player = _db.PlayerInGames.Find(_playerInGameId);
             if (player == null) return;
 
-            if (player.IsAttacker)
+            try
             {
-                await _gameLogic.MakeAttackAsync(_playerInGameId, card);
-            }
-            else if (player.IsDefender)
-            {
-                var lastAttackCard = _db.Cards.FirstOrDefault(c => c.TurnId.HasValue && c.GameSessionId == _gameSessionId);
-                if (lastAttackCard != null)
+                if (player.IsAttacker)
                 {
-                    await _gameLogic.MakeDefenceAsync(_playerInGameId, card, lastAttackCard);
+                    await _gameLogic.MakeAttackAsync(_playerInGameId, card);
+                    logger.Info($"Игрок атакует картой: {card.Suit}{card.Rank}");
                 }
-            }
+                else if (player.IsDefender)
+                {
+                    var attackCards = _db.Cards
+                        .Where(c => c.TurnId.HasValue &&
+                                    c.GameSessionId == _gameSessionId &&
+                                    c.PlayerInGameId != _playerInGameId)
+                        .ToList();
 
-            await _db.SaveChangesAsync();
-            LoadPlayerCards();
-            UpdateTable();
-            UpdateStatus();
-            await DrawCardsIfNeeded();
-            //await CheckWinCondition();
+                    if (!attackCards.Any())
+                    {
+                        MessageBox.Show("Нет карт для отбития");
+                        return;
+                    }
+
+                    var lastAttackCard = attackCards.Last();
+
+                    if (_gameLogic.CanBeat(lastAttackCard, card))
+                    {
+                        await _gameLogic.MakeDefenceAsync(_playerInGameId, card, lastAttackCard);
+                        logger.Info($"Игрок отбивается картой: {card.Suit}{card.Rank} против {lastAttackCard.Suit}{lastAttackCard.Rank}");
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Нельзя отбить {lastAttackCard.Suit}{lastAttackCard.Rank} картой {card.Suit}{card.Rank}");
+                        return;
+                    }
+                }
+
+                await _db.SaveChangesAsync();
+                LoadPlayerCards();
+                UpdateTable();
+                UpdateStatus();
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, "Ошибка при обработке хода");
+                MessageBox.Show($"Ошибка: {ex.Message}");
+            }
         }
 
         private void UpdateTable()
@@ -150,7 +164,6 @@ namespace Game
                     TextAlign = ContentAlignment.MiddleCenter,
                     BorderStyle = BorderStyle.FixedSingle
                 };
-
                 flowLayoutPanelTable.Controls.Add(label);
             }
         }
@@ -174,7 +187,10 @@ namespace Game
         {
             var session = _db.GameSessions.Find(_gameSessionId);
             if (session != null)
+            {
                 lblTrumpSuit.Text = $"Козырь: {session.TrumpSuit}";
+                logger.Debug($"Козырь: {session.TrumpSuit}");
+            }
         }
 
         private async void btnBit_Click(object sender, EventArgs e)
@@ -191,7 +207,6 @@ namespace Game
             await _db.SaveChangesAsync();
 
             await SwitchTurnAsync();
-            //await CheckWinCondition();
         }
 
         private async void btnTake_Click(object sender, EventArgs e)
@@ -210,7 +225,6 @@ namespace Game
 
             LoadPlayerCards();
             UpdateTable();
-            //await CheckWinCondition();
         }
 
         private async Task SwitchTurnAsync()
@@ -233,14 +247,15 @@ namespace Game
                 MessageBox.Show("Не определены роли игроков");
                 return;
             }
+
             attacker.IsAttacker = false;
             defender.IsAttacker = true;
-
             attacker.IsDefender = true;
             defender.IsDefender = false;
 
             _db.PlayerInGames.UpdateRange(players);
             await _db.SaveChangesAsync();
+
             await DrawCardsIfNeeded();
             await CheckWinCondition();
         }
@@ -253,7 +268,6 @@ namespace Game
                 lblStatus.Text = player.IsAttacker ? "Вы атакуете" : "Вы защищаетесь";
             }
         }
-
 
         private async Task DrawCardsIfNeeded()
         {
@@ -279,7 +293,6 @@ namespace Game
 
             LoadPlayerCards();
             UpdateStatus();
-
             await CheckWinCondition();
         }
 
@@ -298,6 +311,7 @@ namespace Game
 
             var player1Cards = await _db.Cards
                 .CountAsync(c => c.PlayerInGameId == player1.Id && c.TurnId == null);
+
             var player2Cards = await _db.Cards
                 .CountAsync(c => c.PlayerInGameId == player2.Id && c.TurnId == null);
 
@@ -329,19 +343,16 @@ namespace Game
             }
         }
 
-
-
-
-
         private async Task HandleGameEnd(bool isWinner)
         {
             string message = isWinner ? "🎉 Ура! Вы выиграли!" : "😭 К сожалению, вы проиграли.";
             logger.Info($"Игрок {_playerInGameId} {(isWinner ? "выиграл" : "проиграл")}");
+
             await UpdatePlayerStatistics(isWinner);
 
             this.Invoke((MethodInvoker)delegate
             {
-                using (var winLoseForm = new WinningForm(message, _serviceProvider))
+                using (var winLoseForm = new WinningForm(message, _db))
                 {
                     winLoseForm.ShowDialog(this);
                 }
@@ -394,7 +405,6 @@ namespace Game
                     stats.GamesLost++;
                     logger.Info($"Поражение игрока {user.Id}, всего поражений: {stats.GamesLost}");
                 }
-
                 _db.PlayerStatistics.Update(stats);
             }
 
@@ -406,12 +416,11 @@ namespace Game
             using (var notificationForm = new NotificationForm())
             {
                 notificationForm.ShowDialog(this);
-
                 if (notificationForm.ConfirmExit)
                 {
                     logger.Warn("Игрок нажал 'Выход' — игра завершается как поражение");
-                    await HandleGameEnd(false); 
-                    this.Close(); 
+                    await HandleGameEnd(false);
+                    this.Close();
                 }
             }
         }
@@ -420,7 +429,7 @@ namespace Game
         {
             logger.Debug("Игрок открыл правила игры");
             var rulesForm = new RuleForm();
-            rulesForm.ShowDialog(this); 
+            rulesForm.ShowDialog(this);
         }
     }
 }

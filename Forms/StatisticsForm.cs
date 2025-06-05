@@ -8,15 +8,16 @@ namespace Game
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         private readonly GameDbContext _db;
-        private readonly IServiceProvider _serviceProvider;
-        public StatisticsForm(GameDbContext db, IServiceProvider serviceProvider)
+
+        public StatisticsForm(GameDbContext db)
         {
+            if (db == null)
+                throw new ArgumentNullException(nameof(db));
+
             InitializeComponent();
-
             _db = db;
-            _serviceProvider = serviceProvider;
 
-            Load += StatisticsForm_Load; 
+            Load += StatisticsForm_Load;
         }
 
         private async void StatisticsForm_Load(object sender, EventArgs e)
@@ -28,7 +29,7 @@ namespace Game
         private async Task LoadStatistics()
         {
             var statsList = await _db.PlayerStatistics
-                .Include(s => s.User) 
+                .Include(s => s.User)
                 .ToListAsync();
 
             logger.Info($"Загружено {statsList.Count} записей статистики");

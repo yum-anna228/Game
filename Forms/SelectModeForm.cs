@@ -1,24 +1,25 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using NLog;
+﻿using NLog;
 using System.Diagnostics;
 
 namespace Game
 {
     /// <summary>
-    /// форма, позволяющая пользователю выбрать режим игры: 2 игрока или 3 игрока,а также перейти к просмотру статистики
+    /// Форма, позволяющая пользователю выбрать режим игры: 2 игрока или 3 игрока,
+    /// а также перейти к просмотру статистики
     /// </summary>
     public partial class SelectModeForm : Form
     {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
         private readonly GameDbContext _db;
-        private  User _currentUser;
-        private readonly IServiceProvider _serviceProvider;
+        private User _currentUser;
 
-        public SelectModeForm(GameDbContext db, IServiceProvider serviceProvider)
+        public SelectModeForm(GameDbContext db)
         {
+            if (db == null)
+                throw new ArgumentNullException(nameof(db));
+
             InitializeComponent();
             _db = db;
-            _serviceProvider = serviceProvider;
             logger.Info("Форма выбора режима загружена");
         }
 
@@ -26,7 +27,6 @@ namespace Game
         {
             _currentUser = user;
         }
-
 
         private void btn_2players_Click(object sender, EventArgs e)
         {
@@ -36,6 +36,7 @@ namespace Game
 
         private void btn_3players_Click(object sender, EventArgs e)
         {
+            logger.Debug("Выбран режим на 3 игрока");
             StartGame(3);
         }
 
@@ -47,7 +48,7 @@ namespace Game
         private void btn_viewStatistics_Click(object sender, EventArgs e)
         {
             logger.Info("Переход к статистике");
-            var statsForm = _serviceProvider.GetRequiredService<StatisticsForm>();
+            var statsForm = new StatisticsForm(_db);
             statsForm.Show();
             this.Hide();
         }
@@ -59,7 +60,6 @@ namespace Game
         private void StartGame(int playerCount)
         {
             logger.Info($"Начало игры с {playerCount} игроками");
-            MessageBox.Show("StartGame начат");
 
             if (_currentUser == null)
             {
@@ -123,11 +123,11 @@ namespace Game
                 MessageBox.Show($"Ошибка при запуске клиента: {ex.Message}");
             }
 
-            this.Close(); 
+            this.Close();
         }
 
         /// <summary>
-        ///  Получает ID второго пользователя (не текущего)
+        /// Получает ID второго пользователя (не текущего)
         /// Если такой пользователь не найден, создаёт бота и сохраняет в БД
         /// </summary>
         private Guid GetSecondUserId(Guid currentUserId)
@@ -150,13 +150,12 @@ namespace Game
             return user.Id;
         }
 
-
         /// <summary>
         /// Возвращает случайную масть, которая будет козырной в текущей игре
         /// </summary>
         private string GetRandomTrumpSuit()
         {
-            var suits = new[] { "♠️", "♥️", "♦️", "♣️" };
+            var suits = new[] { "♠", "♥", "♦", "♣" };
             return suits[new Random().Next(suits.Length)];
         }
     }
