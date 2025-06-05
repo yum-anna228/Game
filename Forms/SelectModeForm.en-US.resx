@@ -117,130 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="&gt;&gt;btn_2players.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="btn_viewStatistics.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+  <data name="btn_2players.Text" xml:space="preserve">
+    <value>New game</value>
   </data>
   <data name="btn_viewStatistics.Text" xml:space="preserve">
-    <value>Посмотреть мою статистику</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="btn_viewStatistics.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left, Right</value>
-  </data>
-  <data name="btn_2players.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>Flat</value>
-  </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="btn_viewStatistics.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI Semibold, 16.2pt, style=Bold</value>
-  </data>
-  <data name="btn_Exit.Location" type="System.Drawing.Point, System.Drawing">
-    <value>414, 369</value>
-  </data>
-  <data name="btn_2players.Location" type="System.Drawing.Point, System.Drawing">
-    <value>187, 124</value>
-  </data>
-  <data name="btn_2players.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="btn_2players.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="&gt;&gt;btn_viewStatistics.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btn_viewStatistics.Parent" xml:space="preserve">
-    <value>$this</value>
+    <value>View my statistics</value>
   </data>
   <data name="btn_Exit.Text" xml:space="preserve">
-    <value>Выйти из аккаунта</value>
-  </data>
-  <data name="$this.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
-    <value>Stretch</value>
-  </data>
-  <data name="btn_Exit.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI Semibold, 16.2pt, style=Bold</value>
-  </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>800, 450</value>
-  </data>
-  <data name="&gt;&gt;btn_Exit.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="btn_2players.Text" xml:space="preserve">
-    <value>Новая игра</value>
-  </data>
-  <data name="&gt;&gt;btn_2players.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="btn_Exit.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="btn_2players.Size" type="System.Drawing.Size, System.Drawing">
-    <value>409, 91</value>
-  </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>SelectModeForm</value>
-  </data>
-  <data name="btn_viewStatistics.Location" type="System.Drawing.Point, System.Drawing">
-    <value>152, 221</value>
-  </data>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>8, 20</value>
-  </data>
-  <data name="&gt;&gt;btn_2players.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btn_viewStatistics.Name" xml:space="preserve">
-    <value>btn_viewStatistics</value>
-  </data>
-  <data name="btn_2players.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI Semibold, 22pt, style=Bold</value>
-  </data>
-  <data name="btn_viewStatistics.Size" type="System.Drawing.Size, System.Drawing">
-    <value>518, 52</value>
-  </data>
-  <data name="btn_Exit.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="btn_Exit.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>Flat</value>
-  </data>
-  <data name="btn_Exit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>342, 47</value>
-  </data>
-  <data name="&gt;&gt;btn_2players.Name" xml:space="preserve">
-    <value>btn_2players</value>
-  </data>
-  <data name="&gt;&gt;btn_Exit.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="btn_viewStatistics.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>Flat</value>
-  </data>
-  <data name="&gt;&gt;btn_viewStatistics.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>Log out of your account</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>Выбор</value>
+    <value>Select</value>
   </data>
-  <data name="&gt;&gt;btn_Exit.Name" xml:space="preserve">
-    <value>btn_Exit</value>
-  </data>
-  <data name="&gt;&gt;btn_Exit.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <metadata name="$this.Language" type="System.Globalization.CultureInfo, System.Private.CoreLib, Culture=neutral, PublicKeyToken=7cec85d7bea7798e">
-    <value>en-US</value>
-  </metadata>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
 </root>

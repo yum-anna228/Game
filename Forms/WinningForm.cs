@@ -1,4 +1,5 @@
 ﻿using NLog;
+using System.Globalization;
 
 namespace Game
 {
@@ -11,7 +12,8 @@ namespace Game
         {
             if (db == null)
                 throw new ArgumentNullException(nameof(db));
-
+            var cultureName = Properties.Settings.Default.Language ?? "ru-RU";
+            var culture = new CultureInfo(cultureName);
             InitializeComponent();
             _db = db;
 
