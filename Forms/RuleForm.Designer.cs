@@ -54,6 +54,8 @@
             Controls.Add(label1);
             Controls.Add(lbl_rule);
             DoubleBuffered = true;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
             Name = "RuleForm";
             ResumeLayout(false);
             PerformLayout();

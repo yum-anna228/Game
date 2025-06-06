@@ -43,9 +43,9 @@
             // 
             // btn_Home
             // 
+            resources.ApplyResources(btn_Home, "btn_Home");
             btn_Home.BackColor = Color.Transparent;
             btn_Home.FlatAppearance.BorderSize = 0;
-            resources.ApplyResources(btn_Home, "btn_Home");
             btn_Home.ForeColor = Color.White;
             btn_Home.Name = "btn_Home";
             btn_Home.UseVisualStyleBackColor = false;
@@ -53,20 +53,20 @@
             // 
             // flowLayoutPanelOpponentCards
             // 
-            flowLayoutPanelOpponentCards.BackColor = Color.Transparent;
             resources.ApplyResources(flowLayoutPanelOpponentCards, "flowLayoutPanelOpponentCards");
+            flowLayoutPanelOpponentCards.BackColor = Color.Transparent;
             flowLayoutPanelOpponentCards.Name = "flowLayoutPanelOpponentCards";
             // 
             // flowLayoutPanelYourCards
             // 
-            flowLayoutPanelYourCards.BackColor = Color.Transparent;
             resources.ApplyResources(flowLayoutPanelYourCards, "flowLayoutPanelYourCards");
+            flowLayoutPanelYourCards.BackColor = Color.Transparent;
             flowLayoutPanelYourCards.Name = "flowLayoutPanelYourCards";
             // 
             // flowLayoutPanelTable
             // 
-            flowLayoutPanelTable.BackColor = Color.White;
             resources.ApplyResources(flowLayoutPanelTable, "flowLayoutPanelTable");
+            flowLayoutPanelTable.BackColor = Color.White;
             flowLayoutPanelTable.Name = "flowLayoutPanelTable";
             // 
             // lblTrumpSuit
@@ -115,9 +115,9 @@
             // 
             // btn_ruls
             // 
+            resources.ApplyResources(btn_ruls, "btn_ruls");
             btn_ruls.BackColor = Color.Transparent;
             btn_ruls.FlatAppearance.BorderSize = 0;
-            resources.ApplyResources(btn_ruls, "btn_ruls");
             btn_ruls.Name = "btn_ruls";
             btn_ruls.UseVisualStyleBackColor = false;
             btn_ruls.Click += btn_ruls_Click;
@@ -138,6 +138,8 @@
             Controls.Add(flowLayoutPanelOpponentCards);
             Controls.Add(btn_Home);
             DoubleBuffered = true;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
             Name = "GameTableFormFor2Players";
             ResumeLayout(false);
             PerformLayout();

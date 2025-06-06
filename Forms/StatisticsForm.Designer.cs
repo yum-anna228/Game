@@ -54,6 +54,8 @@
             Controls.Add(flowLayoutPanelStats);
             Controls.Add(label1);
             DoubleBuffered = true;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
             Name = "StatisticsForm";
             ResumeLayout(false);
             PerformLayout();

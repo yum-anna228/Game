@@ -125,6 +125,8 @@ namespace Game
             Controls.Add(label3);
             Controls.Add(label4);
             DoubleBuffered = true;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
             Name = "RegistrForm";
             ResumeLayout(false);
             PerformLayout();

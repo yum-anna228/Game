@@ -79,6 +79,8 @@
             Controls.Add(lbl_winner);
             Controls.Add(lbl_Ura);
             DoubleBuffered = true;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
             Name = "WinningForm";
             ResumeLayout(false);
             PerformLayout();

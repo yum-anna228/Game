@@ -118,142 +118,142 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="lbl_Ura.Location" type="System.Drawing.Point, System.Drawing">
-    <value>297, 94</value>
-  </data>
-  <data name="&gt;&gt;button1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;btn_NewGame.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="button1.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>Flat</value>
-  </data>
-  <data name="btn_NewGame.Text" xml:space="preserve">
-    <value>Новая игра</value>
-  </data>
-  <data name="&gt;&gt;lbl_winner.Name" xml:space="preserve">
-    <value>lbl_winner</value>
+  <data name="btn_NewGame.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 13.8pt</value>
   </data>
   <data name="btn_NewGame.Location" type="System.Drawing.Point, System.Drawing">
     <value>314, 301</value>
   </data>
-  <data name="btn_NewGame.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
-    <value>Flat</value>
-  </data>
-  <data name="&gt;&gt;lbl_Ura.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="btn_NewGame.Size" type="System.Drawing.Size, System.Drawing">
-    <value>204, 48</value>
-  </data>
-  <data name="&gt;&gt;btn_NewGame.Name" xml:space="preserve">
-    <value>btn_NewGame</value>
-  </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>800, 450</value>
   </data>
-  <data name="&gt;&gt;btn_NewGame.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="lbl_winner.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;button1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="$this.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
-    <value>Stretch</value>
-  </data>
-  <data name="button1.Text" xml:space="preserve">
-    <value>Статистика</value>
+  <data name="&gt;&gt;lbl_winner.Name" xml:space="preserve">
+    <value>lbl_winner</value>
   </data>
   <data name="lbl_winner.Size" type="System.Drawing.Size, System.Drawing">
     <value>0, 54</value>
   </data>
-  <data name="btn_NewGame.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom</value>
-  </data>
-  <data name="&gt;&gt;button1.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="&gt;&gt;lbl_winner.ZOrder" xml:space="preserve">
     <value>2</value>
-  </data>
-  <data name="&gt;&gt;lbl_Ura.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btn_NewGame.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>WinningForm</value>
-  </data>
-  <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>317, 355</value>
   </data>
   <data name="button1.Size" type="System.Drawing.Size, System.Drawing">
     <value>201, 83</value>
   </data>
-  <data name="btn_NewGame.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+  <data name="&gt;&gt;btn_NewGame.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="button1.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
   </data>
   <data name="&gt;&gt;lbl_winner.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
+  <data name="&gt;&gt;lbl_Ura.Name" xml:space="preserve">
+    <value>lbl_Ura</value>
+  </data>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>8, 20</value>
   </data>
-  <data name="lbl_Ura.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="button1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom</value>
-  </data>
-  <data name="&gt;&gt;lbl_Ura.Name" xml:space="preserve">
-    <value>lbl_Ura</value>
+  <data name="lbl_winner.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 24pt</value>
   </data>
   <data name="&gt;&gt;lbl_winner.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="btn_NewGame.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 13.8pt</value>
-  </data>
-  <data name="lbl_Ura.Size" type="System.Drawing.Size, System.Drawing">
-    <value>0, 106</value>
-  </data>
-  <data name="button1.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 13.8pt</value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>WinningForm</value>
-  </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>System.Windows.Forms.Form, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="lbl_Ura.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 48pt</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="button1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>317, 355</value>
   </data>
   <data name="&gt;&gt;button1.Name" xml:space="preserve">
     <value>button1</value>
   </data>
-  <data name="lbl_winner.AutoSize" type="System.Boolean, mscorlib">
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>WinningForm</value>
+  </data>
+  <data name="&gt;&gt;lbl_Ura.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="btn_NewGame.Text" xml:space="preserve">
+    <value>Новая игра</value>
+  </data>
+  <data name="button1.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 13.8pt</value>
+  </data>
+  <data name="lbl_Ura.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="lbl_winner.Location" type="System.Drawing.Point, System.Drawing">
     <value>22, 207</value>
   </data>
-  <data name="lbl_Ura.AutoSize" type="System.Boolean, mscorlib">
+  <data name="&gt;&gt;button1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;btn_NewGame.Name" xml:space="preserve">
+    <value>btn_NewGame</value>
+  </data>
+  <data name="btn_NewGame.Size" type="System.Drawing.Size, System.Drawing">
+    <value>204, 48</value>
+  </data>
+  <data name="&gt;&gt;button1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="lbl_Ura.Location" type="System.Drawing.Point, System.Drawing">
+    <value>297, 94</value>
+  </data>
+  <data name="btn_NewGame.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="lbl_winner.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="lbl_winner.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 24pt</value>
+  <data name="lbl_Ura.Size" type="System.Drawing.Size, System.Drawing">
+    <value>0, 106</value>
   </data>
-  <data name="button1.TabIndex" type="System.Int32, mscorlib">
+  <data name="$this.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Stretch</value>
+  </data>
+  <data name="lbl_Ura.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;btn_NewGame.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="lbl_winner.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="btn_NewGame.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;btn_NewGame.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbl_Ura.ZOrder" xml:space="preserve">
     <value>3</value>
+  </data>
+  <data name="&gt;&gt;button1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="button1.Text" xml:space="preserve">
+    <value>Статистика</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>WinningForm</value>
+  </data>
+  <data name="btn_NewGame.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="lbl_Ura.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 48pt</value>
+  </data>
+  <data name="button1.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
   </data>
   <data name="&gt;&gt;lbl_Ura.Parent" xml:space="preserve">
     <value>$this</value>

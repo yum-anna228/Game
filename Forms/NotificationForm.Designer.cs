@@ -88,6 +88,8 @@
             Controls.Add(label2);
             Controls.Add(label1);
             DoubleBuffered = true;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
             Name = "NotificationForm";
             ResumeLayout(false);
             PerformLayout();

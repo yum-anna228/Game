@@ -72,6 +72,8 @@
             Controls.Add(btn_viewStatistics);
             Controls.Add(btn_2players);
             DoubleBuffered = true;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
             Name = "SelectModeForm";
             Load += SelectModeForm_Load;
             ResumeLayout(false);

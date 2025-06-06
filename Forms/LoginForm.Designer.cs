@@ -64,33 +64,33 @@
             // 
             // contextMenuStrip1
             // 
+            resources.ApplyResources(contextMenuStrip1, "contextMenuStrip1");
             contextMenuStrip1.ImageScalingSize = new Size(20, 20);
             contextMenuStrip1.Name = "contextMenuStrip1";
-            resources.ApplyResources(contextMenuStrip1, "contextMenuStrip1");
             // 
             // contextMenuStrip2
             // 
+            resources.ApplyResources(contextMenuStrip2, "contextMenuStrip2");
             contextMenuStrip2.ImageScalingSize = new Size(20, 20);
             contextMenuStrip2.Name = "contextMenuStrip2";
-            resources.ApplyResources(contextMenuStrip2, "contextMenuStrip2");
             // 
             // contextMenuStrip3
             // 
+            resources.ApplyResources(contextMenuStrip3, "contextMenuStrip3");
             contextMenuStrip3.ImageScalingSize = new Size(20, 20);
             contextMenuStrip3.Name = "contextMenuStrip3";
-            resources.ApplyResources(contextMenuStrip3, "contextMenuStrip3");
             // 
             // txtPassword
             // 
-            txtPassword.BackColor = Color.FromArgb(123, 79, 53);
             resources.ApplyResources(txtPassword, "txtPassword");
+            txtPassword.BackColor = Color.FromArgb(123, 79, 53);
             txtPassword.ForeColor = SystemColors.Window;
             txtPassword.Name = "txtPassword";
             // 
             // txtLogin
             // 
-            txtLogin.BackColor = Color.FromArgb(123, 79, 53);
             resources.ApplyResources(txtLogin, "txtLogin");
+            txtLogin.BackColor = Color.FromArgb(123, 79, 53);
             txtLogin.ForeColor = SystemColors.Window;
             txtLogin.Name = "txtLogin";
             // 
@@ -128,6 +128,8 @@
             Controls.Add(btn_Login);
             Controls.Add(lbl_password);
             DoubleBuffered = true;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
             Name = "LoginForm";
             ResumeLayout(false);
             PerformLayout();

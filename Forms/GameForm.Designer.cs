@@ -85,6 +85,8 @@ namespace Game
             Controls.Add(btn_Rules);
             Controls.Add(btn_Game);
             DoubleBuffered = true;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
             Name = "GameForm";
             ResumeLayout(false);
         }
